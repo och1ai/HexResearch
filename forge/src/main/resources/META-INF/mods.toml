@@ -1,0 +1,42 @@
+modLoader = "javafml"
+loaderVersion = "[43,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "hexresearch"
+version = "${version}"
+displayName = "Hex Research"
+logoFile = "icon.png"
+authors = "Dashkal"
+description = '''
+Research for Hexcasting spells
+'''
+
+[[dependencies.hexresearch]]
+modId = "forge"
+mandatory = true
+versionRange = "[43,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hexresearch]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hexresearch]]
+modId = "architectury"
+mandatory = true
+versionRange = "[6.5.85,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hexresearch]]
+modId = "hexcasting"
+mandatory = true
+versionRange = "[0.10.3,)"
+ordering = "NONE"
+side = "BOTH"

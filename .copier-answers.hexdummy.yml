@@ -1,0 +1,20 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+# https://copier.readthedocs.io/en/stable/configuring/#the-copier-answersyml-file
+_commit: v0.0.3
+_src_path: gh:object-Object/hexdummy
+author: Dashkal
+capitalize_platforms: false
+classname: HexResearch
+default_branch: develop
+description: Research for Hexcasting spells
+display_name: Hex Research
+github_repo: hexresearch
+hexcasting_version: 0.10.3
+homepage_url: ''
+initial_mod_version: 0.0.1
+java_version: 17
+license: MIT
+mappings: loom.officialMojangMappings()
+modid: hexresearch
+package: name.dashkal.minecraft.hexresearch
+sources_url: https://github.com/dashkal16/hexresearch
