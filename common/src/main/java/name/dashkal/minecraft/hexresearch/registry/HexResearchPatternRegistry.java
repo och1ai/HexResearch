@@ -5,8 +5,13 @@ import at.petrak.hexcasting.api.spell.Action;
 import at.petrak.hexcasting.api.spell.math.HexDir;
 import at.petrak.hexcasting.api.spell.math.HexPattern;
 import kotlin.Triple;
-import name.dashkal.minecraft.hexresearch.casting.patterns.math.OpSignum;
-import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpCongrats;
+import name.dashkal.minecraft.hexresearch.casting.patterns.OpPatternsMatchShape;
+import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpCrystallizeLife;
+import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpMindHarm;
+import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpThoughtSieve;
+import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpUncrystallizeLife;
+import name.dashkal.minecraft.hexresearch.casting.patterns.villager.OpVillagerPopularity;
+import name.dashkal.minecraft.hexresearch.casting.patterns.villager.OpVillagerRank;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
@@ -17,9 +22,19 @@ import static name.dashkal.minecraft.hexresearch.HexResearch.id;
 public class HexResearchPatternRegistry {
     public static List<Triple<HexPattern, ResourceLocation, Action>> PATTERNS = new ArrayList<>();
     public static List<Triple<HexPattern, ResourceLocation, Action>> PER_WORLD_PATTERNS = new ArrayList<>();
+
     // IMPORTANT: be careful to keep the registration calls looking like this, or you'll have to edit the hexdoc pattern regex.
-    public static HexPattern CONGRATS = registerPerWorld(HexPattern.fromAngles("eed", HexDir.WEST), "congrats", new OpCongrats());
-    public static HexPattern SIGNUM = register(HexPattern.fromAngles("edd", HexDir.NORTH_WEST), "signum", new OpSignum());
+    public static HexPattern THOUGHT_SIEVE = register(HexPattern.fromAngles("qadaadadqaqdadqaq", HexDir.WEST), "thought_sieve", new OpThoughtSieve());
+    public static HexPattern VILLAGER_RANK = register(HexPattern.fromAngles("qadaadaeawa", HexDir.WEST), "villager_rank", new OpVillagerRank());
+    public static HexPattern VILLAGER_REPUTATION = register(HexPattern.fromAngles("qadaadadeee", HexDir.WEST), "villager_popularity", new OpVillagerPopularity());
+
+    // Test/Debug/Marked for removal
+/*
+    public static HexPattern PATTERNS_MATCH_SHAPE = register(HexPattern.fromAngles("add", HexDir.EAST), "patterns_match_shape", new OpPatternsMatchShape());
+    public static HexPattern MIND_HARM = register(HexPattern.fromAngles("qaa", HexDir.SOUTH_EAST), "mind_harm", new OpMindHarm());
+    public static HexPattern PATTERNS_CRYSTALLIZE_LIFE = register(HexPattern.fromAngles("addwd", HexDir.EAST), "crystallize_life", new OpCrystallizeLife());
+    public static HexPattern PATTERNS_UNCRYSTALLIZE_LIFE = register(HexPattern.fromAngles("addwa", HexDir.EAST), "uncrystallize_life", new OpUncrystallizeLife());
+*/
 
     public static void init() {
         try {

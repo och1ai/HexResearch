@@ -1,15 +1,12 @@
 package name.dashkal.minecraft.hexresearch.registry;
 
-import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import name.dashkal.minecraft.hexresearch.HexResearch;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import name.dashkal.minecraft.hexresearch.item.ItemCaptureShard;
 import net.minecraft.core.Registry;
-
-import static name.dashkal.minecraft.hexresearch.HexResearch.id;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 
 public class HexResearchItemRegistry {
     // Register items through this
@@ -20,10 +17,8 @@ public class HexResearchItemRegistry {
     }
 
     // A new creative tab. Notice how it is one of the few things that are not deferred
-    public static final CreativeModeTab DUMMY_GROUP = CreativeTabRegistry.create(id("dummy_group"), () -> new ItemStack(HexResearchItemRegistry.DUMMY_ITEM.get()));
+    //public static final CreativeModeTab DUMMY_GROUP = CreativeTabRegistry.create(id("dummy_group"), () -> new ItemStack(HexResearchItemRegistry.DUMMY_ITEM.get()));
 
     // During the loading phase, refrain from accessing suppliers' items (e.g. EXAMPLE_ITEM.get()), they will not be available
-    public static final RegistrySupplier<Item> DUMMY_ITEM = ITEMS.register("dummy_item", () -> new Item(new Item.Properties().tab(DUMMY_GROUP)));
-
-
+//    public static final RegistrySupplier<Item> CAPTURE_SHARD = ITEMS.register("capture_shard", () -> new ItemCaptureShard(new Item.Properties().tab(CreativeModeTab.TAB_TOOLS)));
 }

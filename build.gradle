@@ -18,9 +18,9 @@ subprojects {
     apply plugin: "dev.architectury.loom"
 
     // Uncomment to silence the mojmap license warning
-    // loom {
-    //     silentMojangMappingsLicense()
-    // }
+    loom {
+        silentMojangMappingsLicense()
+    }
 
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraftVersion}"
