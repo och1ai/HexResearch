@@ -1,5 +1,9 @@
-# Changelog
+= Changelog =
 
-## 
+== 0.0.2 ==
 
-- Initial version.
+Simplified Chinese Translation - ChuijkYahus
+
+== 0.0.1 ==
+
+Initial Release
