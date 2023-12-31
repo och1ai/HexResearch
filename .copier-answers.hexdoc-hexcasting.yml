@@ -1,0 +1,27 @@
+# Changes here will be overwritten by Copier. NEVER EDIT MANUALLY
+# See: https://copier.readthedocs.io/en/stable/configuring/#the-copier-answersyml-file
+_commit: v0.1.11
+_src_path: gh:hexdoc-dev/hexdoc-hexcasting-template
+author: Dashkal
+book_id: hexresearch:hexresearchbook
+default_branch: develop
+github_repo: hexresearch
+gradle_mod_version_key: modVersion
+hexdoc_mod_plugin_classname: HexResearchModPlugin
+hexdoc_plugin_classname: HexResearchPlugin
+java_lang:
+    ext: java
+    src: java
+java_package: name/dashkal/minecraft/hexresearch
+mod_display_name: Hex Research
+modid: hexresearch
+multiloader: true
+package_export_root: doc/src/hexdoc_hexresearch/_export
+package_name: hexdoc-hexresearch
+package_slug: hexdoc_hexresearch
+package_src: doc/src/hexdoc_hexresearch
+pages_url: https://dashkal.github.io/hexresearch
+pattern_regex:
+    per_world_value: registerPerWorld
+    regex: (?P<is_per_world>register|registerPerWorld)\(HexPattern\.fromAngles\("(?P<signature>[qweasd]+)",\s*HexDir\.(?P<startdir>\w+)\),\s*"(?P<name>[^"]+)"?
+pattern_registry: registry/HexResearchPatternRegistry.java
