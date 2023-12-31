@@ -146,7 +146,7 @@ class OpThoughtSieve : SpellAction {
             rollMindHarm()
 
             // If the villager has mind fatigue, apply additional harm without a roll
-            if (villager.hasEffect(MindFatigueEffect.INSTANCE)) {
+            if (villager.hasEffect(MindFatigueEffect.getInstance())) {
                 logger.debug("OpThoughtSieve.Spell.cast: Mind Fatigue present, doing extra harm")
                 MindHarmLogic.doRandomHarm(caster, villager)
             }

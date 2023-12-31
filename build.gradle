@@ -35,6 +35,17 @@ subprojects {
         annotationProcessor "org.ow2.asm:asm-util:${project.asmVersion}"
     }
 
+    if (project.path != ':common') {
+        loom {
+            mods {
+                main { // to match the default mod generated for Forge
+                    sourceSet project.sourceSets.main
+                    sourceSet project(':common').sourceSets.main
+                }
+            }
+        }
+    }
+
     sourceSets.main.kotlin.srcDirs += 'src/main/java'
     sourceSets.main.resources.srcDirs += "src/generated/resources"
 }
@@ -46,6 +57,10 @@ allprojects {
 
     version = project.modVersion
     group = project.mavenGroup
+
+    architectury {
+        compileOnly()
+    }
 
     repositories {
         maven { url 'https://jitpack.io' }

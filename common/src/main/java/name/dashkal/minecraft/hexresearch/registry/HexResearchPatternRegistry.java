@@ -5,11 +5,7 @@ import at.petrak.hexcasting.api.spell.Action;
 import at.petrak.hexcasting.api.spell.math.HexDir;
 import at.petrak.hexcasting.api.spell.math.HexPattern;
 import kotlin.Triple;
-import name.dashkal.minecraft.hexresearch.casting.patterns.OpPatternsMatchShape;
-import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpCrystallizeLife;
-import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpMindHarm;
 import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpThoughtSieve;
-import name.dashkal.minecraft.hexresearch.casting.patterns.spells.OpUncrystallizeLife;
 import name.dashkal.minecraft.hexresearch.casting.patterns.villager.OpVillagerPopularity;
 import name.dashkal.minecraft.hexresearch.casting.patterns.villager.OpVillagerRank;
 import net.minecraft.resources.ResourceLocation;
@@ -32,8 +28,6 @@ public class HexResearchPatternRegistry {
 /*
     public static HexPattern PATTERNS_MATCH_SHAPE = register(HexPattern.fromAngles("add", HexDir.EAST), "patterns_match_shape", new OpPatternsMatchShape());
     public static HexPattern MIND_HARM = register(HexPattern.fromAngles("qaa", HexDir.SOUTH_EAST), "mind_harm", new OpMindHarm());
-    public static HexPattern PATTERNS_CRYSTALLIZE_LIFE = register(HexPattern.fromAngles("addwd", HexDir.EAST), "crystallize_life", new OpCrystallizeLife());
-    public static HexPattern PATTERNS_UNCRYSTALLIZE_LIFE = register(HexPattern.fromAngles("addwa", HexDir.EAST), "uncrystallize_life", new OpUncrystallizeLife());
 */
 
     public static void init() {

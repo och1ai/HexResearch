@@ -1,6 +1,7 @@
 package name.dashkal.minecraft.hexresearch.effect;
 
 import name.dashkal.minecraft.hexresearch.HexResearch;
+import name.dashkal.minecraft.hexresearch.xplat.XPlatAPI;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -15,8 +16,10 @@ import javax.annotation.Nullable;
  * Marker potion effect used to indicate "mental fatigue".  Attempting to Thought Sieve a villager who has this
  * effect active will cause additional mind harm.
  */
-public class MindFatigueEffect extends MobEffect {
-    public static final MindFatigueEffect INSTANCE = new MindFatigueEffect();
+public abstract class MindFatigueEffect extends MobEffect {
+    public static MindFatigueEffect getInstance() {
+        return XPlatAPI.getInstance().getMindFatigueEffect();
+    }
 
     public static final ResourceLocation ID = new ResourceLocation(HexResearch.MOD_ID, "mind_fatigue");
 
@@ -25,7 +28,7 @@ public class MindFatigueEffect extends MobEffect {
     }
 
     public static MobEffectInstance effectInstance(int durationTicks) {
-        return new MobEffectInstance(INSTANCE, durationTicks);
+        return new MobEffectInstance(getInstance(), durationTicks);
     }
 
     @Override

@@ -1,8 +1,5 @@
 {
-  "item.hexresearch.dummy_item": "Dummy Item",
-  "item.hexresearch.capture_shard": "Capture Shard",
-  "item.hexresearch.capture_shard.empty": "Empty Capture Shard",
-  "item.hexresearch.capture_shard.filled": "Filled Capture Shard",
+  "effect.hexresearch.mind_fatigue": "Mind Fatigue",
 
   "text.hexresearch.thought_sieve.villager": "a villager",
   "text.hexresearch.thought_sieve.test": "Thought Sieve successfully cast",

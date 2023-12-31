@@ -1,8 +1,5 @@
 {
-  "item.hexresearch.dummy_item": "调试物品",
-  "item.hexresearch.capture_shard": "捕捉碎片",
-  "item.hexresearch.capture_shard.empty": "空捕捉碎片",
-  "item.hexresearch.capture_shard.filled": "装满的捕捉碎片",
+  "effect.hexresearch.mind_fatigue": "Mind Fatigue",
 
   "text.hexresearch.thought_sieve.villager": "一个村民",
   "text.hexresearch.thought_sieve.test": "成功施放思维筛滤",

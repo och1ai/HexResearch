@@ -14,5 +14,5 @@ public class HexResearchEffectRegistry {
         EFFECTS.register();
     }
 
-    public static final RegistrySupplier<MobEffect> EFFECT_MIND_FATIGUE = EFFECTS.register(MindFatigueEffect.ID.getPath(), () -> MindFatigueEffect.INSTANCE);
+    public static final RegistrySupplier<MobEffect> EFFECT_MIND_FATIGUE = EFFECTS.register(MindFatigueEffect.ID.getPath(), () -> MindFatigueEffect.getInstance());
 }
