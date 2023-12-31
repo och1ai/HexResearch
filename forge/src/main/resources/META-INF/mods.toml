@@ -7,10 +7,10 @@ license = "MIT"
 modId = "hexresearch"
 version = "${version}"
 displayName = "Hex Research"
-logoFile = "icon.png"
+logoFile = "hex_research.png"
 authors = "Dashkal"
 description = '''
-Research for Hexcasting spells
+An addon to Hex Casting that provides alternative ways to accomplish Hexcasting progression.
 '''
 
 [[dependencies.hexresearch]]

@@ -16,11 +16,3 @@ Learns the correct stroke order of a Great Spell by filtering possibilities thro
  * A way to create blocks that normally require Mind Flay
    * Some sort of artificial mind that's trained via proximity to high ranking villagers
    * Integration with HexGloop's mind jar, allowing a jar to be filled via this mechanic
-
-## TODO
-* Final pass on documentation
-* Determine how to make mind fatigue immune to milk
-* Remove debug spells
-  * Pattern Shape Matching
-  * (Un)Crystallize Life
-    * These should get their own addon. They just don't belong in research.

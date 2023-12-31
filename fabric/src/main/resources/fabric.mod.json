@@ -3,7 +3,7 @@
   "id": "hexresearch",
   "version": "${version}",
   "name": "Hex Research",
-  "description": "Research for Hexcasting spells",
+  "description": "An addon to Hex Casting that provides alternative ways to accomplish Hexcasting progression.",
   "authors": [
     "Dashkal"
   ],
@@ -12,7 +12,7 @@
     "sources": "https://github.com/dashkal16/hexresearch"
   },
   "license": "MIT",
-  "icon": "icon.png",
+  "icon": "hex_research.png",
   "environment": "*",
   "entrypoints": {
     "main": [

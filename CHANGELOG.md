@@ -1,5 +1,9 @@
 = Changelog =
 
+== 0.0.4 ==
+
+Updated zh_ch - ChuijkYahus
+
 == 0.0.3 ==
 
 Fixed Mind Fatigue being removable with milk.
