@@ -5,7 +5,7 @@ _src_path: gh:object-Object/hexdummy
 author: Dashkal
 capitalize_platforms: false
 classname: HexResearch
-default_branch: develop
+default_branch: main
 description: Research for Hexcasting spells
 display_name: Hex Research
 github_repo: hexresearch

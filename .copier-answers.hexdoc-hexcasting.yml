@@ -4,7 +4,7 @@ _commit: v0.1.11
 _src_path: gh:hexdoc-dev/hexdoc-hexcasting-template
 author: Dashkal
 book_id: hexresearch:hexresearchbook
-default_branch: develop
+default_branch: main
 github_repo: hexresearch
 gradle_mod_version_key: modVersion
 hexdoc_mod_plugin_classname: HexResearchModPlugin
