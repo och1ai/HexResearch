@@ -4,6 +4,8 @@ An addon to Hex Casting that provides alternative ways to accomplish Hexcasting 
 
 The general philosophy is that there should be a tedious, but benign way to accomplish any given goal, as well as a faster route, if one is willing to abuse friendly NPCs.
 
+The documentation may be found on the web at https://dashkal16.github.io/HexResearch/v/latest/main/en_us/
+
 ## New Spell
 
 ### Thought Sieve

@@ -12,6 +12,7 @@ authors = "Dashkal"
 description = '''
 An addon to Hex Casting that provides alternative ways to accomplish Hexcasting progression.
 '''
+displayURL = "https://dashkal16.github.io/HexResearch/v/latest/main/en_us"
 
 [[dependencies.hexresearch]]
 modId = "forge"
