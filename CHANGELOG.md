@@ -1,5 +1,10 @@
 = Changelog =
 
+== 0.0.5 ==
+
+Fixed a bug where closed patterns (those that start and end at the same point) would fail to match unless the exact
+same position was chosen in both patterns.
+
 == 0.0.4 ==
 
 Updated zh_ch - ChuijkYahus

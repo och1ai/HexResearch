@@ -50,21 +50,43 @@ public class HexPatternMatch {
         List<HexCoord> coords1 = new ArrayList<>(pattern1.positions());
         List<HexCoord> coords2 = new ArrayList<>(pattern2.positions());
 
-        // Sort both lists lexicographically.
-        coords1.sort(hcc);
-        coords2.sort(hcc);
-
-        // Compare the first from each to obtain the delta.
-        HexCoord delta = coords2.get(0).delta(coords1.get(0));
-
-        // Compare the rest and match if and only if the delta remains constant.
-        for (int i = 0; i < coords1.size(); i++) {
-            if (!coords1.get(i).plus(delta).equals(coords2.get(i))) {
-                return false;
+        // Closed loop special case
+        // For a pattern that ends where it started, remove the duplicated coordinate.
+        // This allows closed loops where different start/end locations were selected to match.
+        if (coords1.size() >= 2) {
+            boolean firstMatched = false;
+            if (coords1.get(0).equals(coords1.get(coords1.size() - 1))) {
+                coords1.remove(coords1.size() - 1);
+                firstMatched = true;
+            }
+            if (coords2.get(0).equals(coords2.get(coords2.size() - 1))) {
+                if (firstMatched) {
+                    coords2.remove(coords2.size() - 1);
+                } else {
+                    // First was closed and second open - not equal
+                    return false;
+                }
+            } else {
+                if (firstMatched) {
+                    // First was open and second closed - not equal
+                    return false;
+                }
             }
         }
-        // If we got here, they match.
-        return true;
+
+        // Sort both lists and re-origin them
+        coords1.sort(hcc);
+        coords2.sort(hcc);
+        reOrigin(coords1);
+        reOrigin(coords2);
+
+        // Now normalized, we can simply compare
+        return coords1.equals(coords2);
+    }
+
+    private static void reOrigin(List<HexCoord> positions) {
+        HexCoord offset = positions.get(0);
+        positions.replaceAll(hexCoord -> hexCoord.minus(offset));
     }
 
     // lexicographical sort on Q, then R.

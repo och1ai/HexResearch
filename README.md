@@ -18,3 +18,6 @@ Learns the correct stroke order of a Great Spell by filtering possibilities thro
  * A way to create blocks that normally require Mind Flay
    * Some sort of artificial mind that's trained via proximity to high ranking villagers
    * Integration with HexGloop's mind jar, allowing a jar to be filled via this mechanic
+ * Automatons
+   * A specicalized artifical mind that may be encoded with a hex, not unlike a wisp
+   * Can be loaded into a flayed villager or an artifical construct not unlike a golem
