@@ -3,6 +3,8 @@
 == 0.0.6 ==
 
 * Documented Mind Fatigue
+* Added Mixin Extras  
+  https://github.com/LlamaLad7/MixinExtras
 
 == 0.0.5 ==
 

@@ -1,5 +1,8 @@
 package name.dashkal.minecraft.hexresearch.fabric.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,21 +31,19 @@ public abstract class MindFatigueMixin extends Entity {
     @Shadow @Final
     private Map<MobEffect, MobEffectInstance> activeEffects;
 
-    private MobEffectInstance removedMindFatigue = null;
-
     @Inject(at = @At("HEAD"), method = "removeAllEffects()Z")
-    private void removeAllEffectsHead(CallbackInfoReturnable<Boolean> cir) {
+    private void removeAllEffectsHead(CallbackInfoReturnable<Boolean> cir, @Share("effectInstance") LocalRef<MobEffectInstance> effectInstance) {
         MobEffect mindFatigueEffect = MindFatigueEffect.getInstance();
         if (activeEffects.containsKey(mindFatigueEffect)) {
-            removedMindFatigue = activeEffects.remove(mindFatigueEffect);
+            effectInstance.set(activeEffects.remove(mindFatigueEffect));
         }
     }
 
     @Inject(at = @At("RETURN"), method = "removeAllEffects()Z")
-    private void removeAllEffectsReturn(CallbackInfoReturnable<Boolean> cir) {
-        if (removedMindFatigue != null) {
-            activeEffects.put(MindFatigueEffect.getInstance(), removedMindFatigue);
-            removedMindFatigue = null;
+    private void removeAllEffectsReturn(CallbackInfoReturnable<Boolean> cir, @Share("effectInstance") LocalRef<MobEffectInstance> effectInstance) {
+        if (effectInstance.get() != null) {
+            activeEffects.put(MindFatigueEffect.getInstance(), effectInstance.get());
+            effectInstance.set(null);
         }
     }
 }

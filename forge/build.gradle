@@ -30,11 +30,19 @@ configurations {
     developmentForge.extendsFrom common
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     modCompileOnly(group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2') // for @Nonnull
 
     forge "net.minecraftforge:forge:${project.forgeVersion}"
     modApi "dev.architectury:architectury-forge:${project.architecturyVersion}"
+
+    // mixin extras
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinExtrasVersion}"))
+    runtimeOnly(include("io.github.llamalad7:mixinextras-forge:${mixinExtrasVersion}"))
 
     modImplementation("at.petra-k.hexcasting:hexcasting-forge-${project.minecraftVersion}:${project.hexcastingVersion}") {
         transitive = false
