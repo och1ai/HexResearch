@@ -15,7 +15,7 @@ import java.util.List;
 
 import static name.dashkal.minecraft.hexresearch.HexResearch.id;
 
-public class HexResearchPatternRegistry {
+public class HexPatterns {
     public static List<Triple<HexPattern, ResourceLocation, Action>> PATTERNS = new ArrayList<>();
     public static List<Triple<HexPattern, ResourceLocation, Action>> PER_WORLD_PATTERNS = new ArrayList<>();
 

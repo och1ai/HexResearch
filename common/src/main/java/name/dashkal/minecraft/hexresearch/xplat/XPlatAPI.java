@@ -1,6 +1,8 @@
 package name.dashkal.minecraft.hexresearch.xplat;
 
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 /**
  * Interface that houses platform-specific logic.
@@ -12,7 +14,7 @@ public abstract class XPlatAPI {
     // Initialized in the forge and fabric mod initializers
     protected static XPlatAPI INSTANCE = null;
 
-    /** Returns an instance of this API appropiate for the current platform */
+    /** Returns an instance of this API appropriate for the current platform */
     public static XPlatAPI getInstance() { return INSTANCE; }
 
     /** Returns the Mind Fatigue potion effect. */

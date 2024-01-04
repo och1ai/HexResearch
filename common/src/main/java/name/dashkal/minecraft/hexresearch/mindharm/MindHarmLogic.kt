@@ -1,7 +1,7 @@
 package name.dashkal.minecraft.hexresearch.mindharm
 
 import name.dashkal.minecraft.hexresearch.HexResearch
-import name.dashkal.minecraft.hexresearch.registry.HexResearchMindHarmRegistry
+import name.dashkal.minecraft.hexresearch.registry.MindHarms
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.npc.Villager
@@ -17,7 +17,7 @@ object MindHarmLogic {
      * than more severe mechanics.  If the chosen mechanic fails, try again with the next.
      */
     @JvmStatic fun doRandomHarm(attacker : Entity?, villager : Villager) : Boolean {
-        val mechanicMap = HexResearchMindHarmRegistry.getAll()
+        val mechanicMap = MindHarms.getAll()
         val mechanics = sortMechanics(mechanicMap.values)
         val startIndex = randomByHalves(mechanics.size)
         val logger = HexResearch.LOGGER
@@ -39,7 +39,7 @@ object MindHarmLogic {
      * @return <code>true</code> if the mechanic was found and was successful, false otherwise
      */
     @JvmStatic fun doHarm(attacker : Entity?, villager : Villager, harmId: ResourceLocation): Boolean {
-        return HexResearchMindHarmRegistry.get(harmId)
+        return MindHarms.get(harmId)
             .map { it.doHarm(attacker, villager) }
             .orElse(false)
     }

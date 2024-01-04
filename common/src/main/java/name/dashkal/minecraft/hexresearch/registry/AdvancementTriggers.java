@@ -1,12 +1,11 @@
 package name.dashkal.minecraft.hexresearch.registry;
 
-import name.dashkal.minecraft.hexresearch.HexResearch;
 import name.dashkal.minecraft.hexresearch.advancements.trigger.AdvancementTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.CriterionTriggerInstance;
 
-public class HexResearchAdvancementTriggerRegistry {
+public class AdvancementTriggers {
     public static final AdvancementTrigger ADVANCEMENT_TRIGGER = register(new AdvancementTrigger());
 
     public static void init() {

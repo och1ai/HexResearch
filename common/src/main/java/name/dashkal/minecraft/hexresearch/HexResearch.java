@@ -19,17 +19,17 @@ public class HexResearch {
         LOGGER.debug("Logger name: " + LOGGER.getName());
 
         // Minecraft / Forge / Fabric Registries
-        HexResearchItemRegistry.init();
-        HexResearchIotaTypeRegistry.init();
-        HexResearchPatternRegistry.init();
-        HexResearchEffectRegistry.init();
-        HexResearchAdvancementTriggerRegistry.init();
+        Items.init();
+        IotaTypes.init();
+        HexPatterns.init();
+        Effects.init();
+        AdvancementTriggers.init();
 
         // Networking
         Networking.init();
 
         // HexResearch internals
-        HexResearchMindHarmRegistry.init();
+        MindHarms.init();
 
         //LOGGER.debug(HexResearchAbstractions.getConfigDirectory().toAbsolutePath().normalize().toString());
     }

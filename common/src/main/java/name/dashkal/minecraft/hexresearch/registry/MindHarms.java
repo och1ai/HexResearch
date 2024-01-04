@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class HexResearchMindHarmRegistry {
+public class MindHarms {
     private static final Map<ResourceLocation, MindHarmMechanic> mechanicMap = new ConcurrentHashMap<>();;
 
     public static MindHarmMechanic DERANK = register(new MindHarmDerankProfession());

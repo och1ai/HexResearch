@@ -1,6 +1,6 @@
 package name.dashkal.minecraft.hexresearch.mixin;
 
-import name.dashkal.minecraft.hexresearch.registry.HexResearchAdvancementTriggerRegistry;
+import name.dashkal.minecraft.hexresearch.registry.AdvancementTriggers;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.server.PlayerAdvancements;
@@ -19,7 +19,7 @@ public abstract class AdvancementTriggerMixin {
     @Inject(at = @At("RETURN"), method = "award(Lnet/minecraft/advancements/Advancement;Ljava/lang/String;)Z")
     private void award(Advancement advancement, String string, CallbackInfoReturnable<Boolean> cir) {
         if (getOrStartProgress(advancement).isDone()) {
-            HexResearchAdvancementTriggerRegistry.ADVANCEMENT_TRIGGER.trigger(player, advancement.getId());
+            AdvancementTriggers.ADVANCEMENT_TRIGGER.trigger(player, advancement.getId());
         }
     }
 
