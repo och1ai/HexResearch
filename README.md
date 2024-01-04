@@ -10,14 +10,34 @@ The documentation may be found on the web at https://dashkal16.github.io/HexRese
 
 ### Thought Sieve
 
-Learns the correct stroke order of a Great Spell by filtering possibilities through the mind of a villager. May have adverse effects on the villager.
+Finds the correct stroke order of a Great Spell by filtering possibilities through the mind of a villager. May have adverse effects on the villager.
+
+## Requirements
+
+* Minecraft: 1.19.2
+* Forge: 1.19.2-43.2.11
+* Fabric: 0.14.21
+* Hex Casting: 0.10.3
+* Patchouli: 1.19.2-77
+
+Note: Some of the above have dependencies of their own
 
 ## Future Plans
- * A way to learn great spells without abusing Villagers
-   * Maybe. The loot dive makes a good tedious alternative, which makes the villager abuse method more attractive.
- * A way to create blocks that normally require Mind Flay
-   * Some sort of artificial mind that's trained via proximity to high ranking villagers
-   * Integration with HexGloop's mind jar, allowing a jar to be filled via this mechanic
- * Automatons
-   * A specicalized artifical mind that may be encoded with a hex, not unlike a wisp
-   * Can be loaded into a flayed villager or an artifical construct not unlike a golem
+
+* A way to create blocks that normally require Mind Flay
+  * Some sort of artificial mind that's trained via proximity to high ranking villagers
+  * Integration with HexGloop's mind jar, allowing a jar to be filled via this mechanic
+* Programmable Mind
+  * A specialized artificial mind that may be encoded with a hex
+  * Can be loaded into a flayed villager or a slate golem
+  * May cast hexes, but draws media from their inventory
+  * May move, interact with its inventory, fight, etc.
+* Reprogrammed Villager
+  * Repurposed flayed villager housing a programmable mind
+  * Can wear armor
+* Slate Golem
+  * Artificial construct meant to house programmable minds
+  * Cannot wear armor
+    * Has natural armor equivalent to iron
+    * May allow upgraded parts to improve stats
+  * Does not naturally regenerate (use the regen zenith to heal)
