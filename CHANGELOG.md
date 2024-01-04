@@ -2,6 +2,8 @@
 
 == 0.0.6 ==
 
+* Documented Mind Fatigue
+
 == 0.0.5 ==
 
 * Fixed a bug where closed patterns (those that start and end at the same point) would fail to match unless the exact

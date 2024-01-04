@@ -25,6 +25,10 @@
     {
       "type": "patchouli:text",
       "text": "hexresearch.page.thought_sieve.spell.2"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "hexresearch.page.thought_sieve.spell.3"
     }
   ]
 }
