@@ -5,7 +5,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.CriterionTriggerInstance;
 
-public class AdvancementTriggers {
+public class HRAdvancementTriggers {
     public static final AdvancementTrigger ADVANCEMENT_TRIGGER = register(new AdvancementTrigger());
 
     public static void init() {

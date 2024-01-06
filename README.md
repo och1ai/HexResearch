@@ -22,11 +22,13 @@ Finds the correct stroke order of a Great Spell by filtering possibilities throu
 
 Note: Some of the above have dependencies of their own
 
+## Anticipated Questions
+
+* I can't find scrolls or sift for Imbue Mind!
+  * You need to regenerate your per-world patterns with /hexcasting recalcPatterns
+
 ## Future Plans
 
-* A way to create blocks that normally require Mind Flay
-  * Some sort of artificial mind that's trained via proximity to high ranking villagers
-  * Integration with HexGloop's mind jar, allowing a jar to be filled via this mechanic
 * Programmable Mind
   * A specialized artificial mind that may be encoded with a hex
   * Can be loaded into a flayed villager or a slate golem

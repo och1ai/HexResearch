@@ -2,8 +2,8 @@ package name.dashkal.minecraft.hexresearch.forge;
 
 import dev.architectury.platform.forge.EventBuses;
 import name.dashkal.minecraft.hexresearch.HexResearch;
+import name.dashkal.minecraft.hexresearch.forge.event.Events;
 import name.dashkal.minecraft.hexresearch.forge.xplat.ForgeXPlatAPIImpl;
-import name.dashkal.minecraft.hexresearch.xplat.XPlatAPI;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -22,5 +22,6 @@ public class HexResearchForge {
 
         ForgeXPlatAPIImpl.init();
         HexResearch.init();
+        Events.init();
     }
 }

@@ -1,11 +1,4 @@
 {
-  "display": {
-    "icon": {
-      "item": "minecraft:hopper"
-    },
-    "title": "Thought Sieve",
-    "description": "Cast Thought Sieve"
-  },
   "parent": "hexcasting:enlightenment",
   "criteria": {
     "cast_spell": {

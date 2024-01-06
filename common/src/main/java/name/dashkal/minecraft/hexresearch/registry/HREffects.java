@@ -7,7 +7,7 @@ import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.world.effect.MobEffect;
 
-public class Effects {
+public class HREffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(HexResearch.MOD_ID, Registry.MOB_EFFECT_REGISTRY);
 
     public static void init() {

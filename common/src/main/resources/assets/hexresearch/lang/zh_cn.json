@@ -1,27 +1,44 @@
 {
+  "itemGroup.hexresearch.hex_research": "Hex Research",
+
+  "block.hexresearch.cognitive_inducer": "Cognitive Inducer",
+
   "effect.hexresearch.mind_fatigue": "意识疲劳",
 
   "text.hexresearch.thought_sieve.villager": "一个村民",
-  "text.hexresearch.thought_sieve.test": "成功施放思维筛滤",
   "text.hexresearch.villager_actions.villager": "一个村民",
-  "text.hexresearch.crystallize_life.living": "一个生物",
+  "text.hexresearch.imbue_mind.cognitive_inducer": "an artificial mind",
 
-  "hexresearch.mishap.not_capture_shard.empty": "一个空捕捉碎片",
-  "hexresearch.mishap.uncrystallize_life.filled": "一个装满的捕捉碎片",
+  "text.hexresearch.cognitive_inducer.empty": "Empty",
+  "text.hexresearch.cognitive_inducer.profession": "Profession: %s",
+  "text.hexresearch.cognitive_inducer.biome": "Biome: %s",
+  "text.hexresearch.cognitive_inducer.rank": "Rank: %s",
 
+  "hexresearch.mishap.bad_mind_imbue": "a filled artificial mind",
   "hexresearch.mishap.not_per_world_pattern": "本应提供一张写有卓越法术的卷轴",
   "hexresearch.mishap.not_scroll": "本应提供一张已写卷轴",
 
+  "hexresearch.entry.items.cognitive_inducer": "Cognitive Inducer",
+  "hexresearch.page.items.cognitive_inducer.1": "I have devised a construction capable of precipitating a rudimentary mind by induction from nearby villagers. It's not capable of true sapience, but I believe it will suffice for purposes such as bookkeeping or media manipulation.",
+  "hexresearch.page.items.cognitive_inducer.2": "Constructed of slate, amethyst, and a diamond to serve as an anchor point for the mind.",
+  "hexresearch.page.items.cognitive_inducer.3": "The operation of the Cognitive Inducer is simple enough. Set it down near a villager, feed it media with a hopper or similar, and wait. A $(l:hexcasting:items/lens)Scrying Lens/$ should help me monitor progress. Over time the inducer will take impressions of nearby villagers and over enough of these, will form a usable 'mind' of its own.$(br2)I have not yet found a way to utilize this mind, but with more research I'm sure I will find a solution.",
+  "hexresearch.page.items.cognitive_inducer.4": "I've done it!$(br2)I have invented? discovered? a $(l:hexresearch:patterns/great_spells/imbue_mind)great spell/$ that can transfer the mind from the inducer into a suitable construction in the same manner as $(l:hexcasting:greatwork/brainsweeping)Flay Mind/$.$(br2)Now I may cultivate minds for my own use and put them to work...$(br2)Should this bother me?",
+
   "hexcasting.spell.hexresearch:thought_sieve": "思维筛滤",
+  "hexcasting.spell.hexresearch:imbue_mind": "Imbue Mind",
   "hexcasting.spell.hexresearch:villager_rank": "职业之纯化",
   "hexcasting.spell.hexresearch:villager_popularity": "易影响性之纯化",
-
-  "hexcasting.spell.hexresearch:crystallize_life": "晶化生命",
-  "hexcasting.spell.hexresearch:uncrystallize_life": "释放晶化生命",
 
   "hexresearch.entry.greatwork.on_thought_sifting": "关于思维的过滤",
   "hexresearch.page.greatwork.on_thought_sifting.1": "我一直以为我是在向自然寻求法术。我一直以为我是在向某种实体寻求答案！我把他们的意识浸入那宏大的媒质回环。过滤思维通过突触通过想法通过……$(br2)他们能存活下来已是奇迹。我感受到那些过滤后的媒质时我绝对获得了一瞬的记忆思维想法颜色……$(br)马上。停下。吸气。呼气。",
   "hexresearch.page.greatwork.on_thought_sifting.2": "还有更多吗？",
+
+  "hexresearch.entry.villager_actions": "村民",
+  "hexcasting.spell.book.hexresearch:villager_rank": "职业之纯化",
+  "hexcasting.spell.book.hexresearch:villager_popularity": "易影响性之纯化",
+  "hexresearch.page.villager_actions.intro.1": "这几页主要介绍能获取村民信息的操作。",
+  "hexresearch.page.villager_actions.villager_rank": "接受一个村民$(l:casting/101)实体/$，并返回其职业等级。",
+  "hexresearch.page.villager_actions.villager_popularity": "接受一个村民$(l:casting/101)实体/$，并返回代表施法者对其影响能力的数（施法者的声望）。",
 
   "hexresearch.entry.thought_sieve": "思维筛滤",
   "hexcasting.spell.book.hexresearch:thought_sieve": "思维筛滤",
@@ -31,10 +48,10 @@
   "hexresearch.page.thought_sieve.spell.2": "如果法术施放成功，其会改写卷轴至与卓越法术相符。村民对其职业的$(l:hexresearch:villager_rank)熟练度/$越高，他们的意识就越有可能担得起这种任务。然而，要是村民$(l:hexresearch:villager_popularity)对我的接受度/$不够，他们就可能失去一部分自我。极端情况下，甚至会完全丧失生命……我真的要这么做吗？",
   "hexresearch.page.thought_sieve.spell.3": "Thought sifting is mentally fatiguing for the villager. I must be careful to avoid using the same villager too often, or I may cause them additional harm. It doesn't take long for them to recover, however. Half a minute should be enough.",
 
-  "hexresearch.entry.villager_actions": "村民",
-  "hexcasting.spell.book.hexresearch:villager_rank": "职业之纯化",
-  "hexcasting.spell.book.hexresearch:popularity": "易影响性之纯化",
-  "hexresearch.page.villager_actions.intro.1": "这几页主要介绍能获取村民信息的操作。",
-  "hexresearch.page.villager_actions.villager_rank": "接受一个村民$(l:casting/101)实体/$，并返回其职业等级。",
-  "hexresearch.page.villager_actions.villager_popularity": "接受一个村民$(l:casting/101)实体/$，并返回代表施法者对其影响能力的数（施法者的声望）。"
+  "hexresearch.entry.imbue_mind": "Imbue Mind",
+  "hexcasting.spell.book.hexresearch:imbue_mind": "Imbue Mind",
+  "hexresearch.page.spells.imbue_mind.1": "There's something here but I can't quite understand what it does...",
+  "hexresearch.page.spells.imbue_mind.2": "I've grasped the meaning! This spell takes the location of a Cognitive Inducer and a target construction, then imbues the mind into the construction. The minds and constructions are exactly the same as for $(l:hexcasting:greatwork/brainsweeping)Flay Mind/$.",
+
+  "hexresearch.misc.overlay.infinite": "§kInfinite§r"
 }

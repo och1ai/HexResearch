@@ -1,8 +1,7 @@
 package name.dashkal.minecraft.hexresearch.xplat;
 
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.entity.npc.Villager;
 
 /**
  * Interface that houses platform-specific logic.
@@ -19,4 +18,10 @@ public abstract class XPlatAPI {
 
     /** Returns the Mind Fatigue potion effect. */
     public abstract MindFatigueEffect getMindFatigueEffect();
+
+    /** Marks the villager with the world time for reading later. */
+    public abstract void cognitiveInducerMarkVillager(Villager villager, long expirationTime);
+
+    /** Returns true if the villager is marked and the time has not expired. */
+    public abstract boolean cognitiveInducerIsVillagerMarked(Villager villager, long worldTime);
 }

@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static name.dashkal.minecraft.hexresearch.HexResearch.id;
 
-public class IotaTypes {
+public class HRIotaTypes {
     public static Map<ResourceLocation, IotaType<?>> TYPES = new HashMap<>();
 
     public static void init() {

@@ -9,7 +9,7 @@ import at.petrak.hexcasting.api.spell.getEntity
 import at.petrak.hexcasting.api.spell.iota.Iota
 import at.petrak.hexcasting.api.spell.mishaps.MishapBadEntity
 import name.dashkal.minecraft.hexresearch.mindharm.MindHarmLogic
-import name.dashkal.minecraft.hexresearch.registry.MindHarms
+import name.dashkal.minecraft.hexresearch.registry.HRMindHarms
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.npc.Villager
@@ -42,7 +42,7 @@ class OpMindHarm : SpellAction {
 
     private data class Spell(val villager: Villager, val caster: ServerPlayer) : RenderedSpell {
         override fun cast(ctx: CastingContext) {
-            MindHarmLogic.doHarm(caster, villager, MindHarms.KILL.id)
+            MindHarmLogic.doHarm(caster, villager, HRMindHarms.KILL.id)
         }
     }
 }

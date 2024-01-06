@@ -20,6 +20,9 @@
     ],
     "client": [
       "name.dashkal.minecraft.hexresearch.fabric.HexResearchClientFabric"
+    ],
+    "cardinal-components": [
+      "name.dashkal.minecraft.hexresearch.fabric.cc.HexResearchCC"
     ]
   },
   "mixins": [
@@ -33,5 +36,10 @@
     "fabric-language-kotlin": ">=1.9.0+kotlin.1.8.0",
     "architectury": ">=6.5.85",
     "hexcasting": ">=0.10.3"
+  },
+  "custom": {
+    "cardinal-components": [
+      "hexresearch:ci_mark"
+    ]
   }
 }
