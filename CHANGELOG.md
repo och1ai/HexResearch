@@ -1,5 +1,12 @@
 = Changelog =
 
+== 0.1.0 ==
+
+* Added Vegan Mind Flaying
+  * Added Block: Cognitive Inducer
+  * Added Great Spell: Imbue Mind
+    * If adding this to an existing world, run /hexcasting recalcPatterns to generate the per-world pattern entry
+
 == 0.0.6 ==
 
 * Documented Mind Fatigue
