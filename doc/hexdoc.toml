@@ -1,7 +1,7 @@
 modid = "hexresearch"
 book = "hexresearch:hexresearchbook"
 default_lang = "en_us"
-default_branch = "develop"
+default_branch = "main"
 
 resource_dirs = [  # top takes priority
     "resources",
