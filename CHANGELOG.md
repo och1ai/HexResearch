@@ -1,5 +1,12 @@
 = Changelog =
 
+== 0.1.1 ==
+
+* Bugfixes
+  * Cognitive Inducers now drop when mined
+  * Fixed access to client classes in dedicated server
+  * Fixed Cognitive Inducer not consuming media on Forge
+
 == 0.1.0 ==
 
 * Added Vegan Mind Flaying

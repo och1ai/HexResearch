@@ -61,8 +61,19 @@ public class MediaContainer implements WorldlyContainer {
             setInfinite(true);
         }
 
-        int extracted = MediaHelper.extractMedia(itemStack, getRemainingCapacity(), true, simulate);
+        int extracted = extractMediaFromItem(itemStack, simulate);
         addMedia(extracted);
+    }
+
+    /**
+     * Extracts as much media as we can from the given ItemStack.
+     *
+     * @param itemStack the ItemStack to extract media from
+     * @param simulate if true, do not actually modify the ItemStack
+     * @return the amount of extracted media
+     */
+    public int extractMediaFromItem(@Nonnull ItemStack itemStack, boolean simulate) {
+        return MediaHelper.extractMedia(itemStack, getRemainingCapacity(), true, simulate);
     }
 
     /**

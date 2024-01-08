@@ -30,9 +30,20 @@ public class MediaContainerItemHandler implements IItemHandler {
 
     @Override
     public @NotNull ItemStack insertItem(int slotId, @NotNull ItemStack itemStack, boolean simulate) {
-        ItemStack copy = itemStack.copy();
-        blockEntity.insertMedia(copy, simulate);
-        return copy;
+        if (!isItemValid(slotId, itemStack)) {
+            return itemStack;
+        }
+
+        ItemStack stack = itemStack.copy();
+
+        if (!simulate) {
+            blockEntity.insertMedia(stack, false);
+        } else {
+            // We're simulating, but the capability contract still wants us to return an ItemStack with the media taken.
+            blockEntity.extractMediaFromItem(stack, false);
+        }
+
+        return stack;
     }
 
     @Override

@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class CapabilityEventHandler {
     @SubscribeEvent
-    public static void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<BlockEntity> event) {
+    public static void onAttachCapabilitiesBlockEntity(AttachCapabilitiesEvent<BlockEntity> event) {
         if (event.getObject() instanceof AbstractMediaContainerBlockEntity be) {
             event.addCapability(new ResourceLocation(HexResearch.MOD_ID, "mediacontainer"), new MediaContainerItemHandler.CapabilityProvider(be));
         }

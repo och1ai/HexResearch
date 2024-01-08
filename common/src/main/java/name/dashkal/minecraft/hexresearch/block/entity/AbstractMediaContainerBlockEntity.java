@@ -94,6 +94,10 @@ public abstract class AbstractMediaContainerBlockEntity extends BlockEntity impl
         onMediaContainerUpdated();
     }
 
+    public int extractMediaFromItem(@Nonnull ItemStack itemStack, boolean simulate) {
+        return mediaContainer.extractMediaFromItem(itemStack, simulate);
+    }
+
     @Override
     @Nonnull
     public int[] getSlotsForFace(@Nonnull Direction direction) {

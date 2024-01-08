@@ -5,6 +5,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class Events {
     public static void init() {
-        MinecraftForge.EVENT_BUS.addGenericListener(BlockEntity.class, CapabilityEventHandler::onAttachCapabilitiesEvent);
+        // Capabilities
+        MinecraftForge.EVENT_BUS.addGenericListener(BlockEntity.class, CapabilityEventHandler::onAttachCapabilitiesBlockEntity);
     }
 }

@@ -1,17 +1,14 @@
 package name.dashkal.minecraft.hexresearch.network;
 
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.utils.Env;
 import io.netty.buffer.Unpooled;
 import name.dashkal.minecraft.hexresearch.HexResearch;
-import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity;
-import net.minecraft.client.Minecraft;
+import name.dashkal.minecraft.hexresearch.client.block.entity.CognitiveInducerClient;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.level.Level;
 
 public class MindImpressionPacket {
     public static final ResourceLocation PACKET_ID = new ResourceLocation(HexResearch.MOD_ID, "mind_impression");
@@ -53,16 +50,8 @@ public class MindImpressionPacket {
         int entityId = buf.readInt();
         BlockPos blockPos = buf.readBlockPos();
 
-        // Find the matching entity
-        Level level = Minecraft.getInstance().level;
-
-        if (level != null && level.dimension().location().equals(dimensionId)) {
-            Entity entity = Minecraft.getInstance().level.getEntity(entityId);
-            if (entity instanceof Villager villager
-                    && level.getBlockEntity(blockPos) instanceof CognitiveInducerBlockEntity cibe) {
-                // Found it
-                cibe.impressionParticles(level, villager, blockPos);
-            }
+        if (context.getEnvironment() == Env.CLIENT) {
+            CognitiveInducerClient.handleParticlePacket(dimensionId, entityId, blockPos);
         }
     }
 }
