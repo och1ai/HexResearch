@@ -14,9 +14,12 @@ import at.petrak.hexcasting.common.recipe.HexRecipeStuffRegistry
 import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity
 import name.dashkal.minecraft.hexresearch.util.Mind
 import name.dashkal.minecraft.hexresearch.casting.mishaps.MishapBadMindImbue
+import name.dashkal.minecraft.hexresearch.interop.HexGloopInterOp
+import name.dashkal.minecraft.hexresearch.interop.Interop
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec3
+import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 class OpImbueMind : SpellAction {
@@ -46,14 +49,23 @@ class OpImbueMind : SpellAction {
         // Grab the target block
         val state = ctx.world.getBlockState(targetBlockPos)
 
-        // Look for an applicable recipe or mishap if we fail
-        val recipes = ctx.world.recipeManager.getAllRecipesFor(HexRecipeStuffRegistry.BRAINSWEEP_TYPE)
-        val recipe = recipes.find(checkBrainsweepRecipe(state, mind))
-            ?: throw MishapBadMindImbue(artificialMind, targetBlockPos)
+        // HexGloop Interop - Support IDynamicTarget
+        val r = Interop.getHexGloop().offerMind(ctx, targetBlockPos, mind);
+        val spell = if (r.isPresent) {
+            // HexGloop accepted it
+            InteropSpell(artificialMind, r.get())
+        } else {
+            // Look for an applicable recipe or mishap if we fail
+            val recipes = ctx.world.recipeManager.getAllRecipesFor(HexRecipeStuffRegistry.BRAINSWEEP_TYPE)
+            val recipe = recipes.find(checkBrainsweepRecipe(state, mind))
+                ?: throw MishapBadMindImbue(artificialMind, targetBlockPos)
 
-        // Success, return the spell
+            // Success, return the spell
+            Spell(artificialMind, targetBlockPos, state, recipe)
+        }
+
         return Triple(
-            Spell(artificialMind, targetBlockPos, state, recipe),
+            spell,
             cost,
             listOf(
                 ParticleSpray.cloud(Vec3.atCenterOf(sourceMindPos), 1.0),
@@ -77,6 +89,9 @@ class OpImbueMind : SpellAction {
         }
     }
 
+    /**
+     * Normal operation spell - Imbue the source mind into the target block using the brainsweep recipe.
+     */
     private data class Spell(
         val sourceMind: CognitiveInducerBlockEntity,
         val targetBlockPos: BlockPos,
@@ -86,6 +101,19 @@ class OpImbueMind : SpellAction {
         override fun cast(ctx: CastingContext) {
             sourceMind.clearMind()
             ctx.world.setBlockAndUpdate(targetBlockPos, BrainsweepRecipe.copyProperties(state, recipe.result))
+        }
+    }
+
+    /**
+     * Interop spell - Clear the source mind and invoke the returned runnable.
+     */
+    private data class InteropSpell(
+        val sourceMind: CognitiveInducerBlockEntity,
+        val accept: Runnable
+    ) : RenderedSpell {
+        override fun cast(ctx: CastingContext) {
+            sourceMind.clearMind()
+            accept.run()
         }
     }
 }

@@ -54,6 +54,8 @@ dependencies {
 
     modRuntimeOnly "at.petra-k.paucal:paucal-forge-${minecraftVersion}:${paucalVersion}"
     modRuntimeOnly "vazkii.patchouli:Patchouli:${minecraftVersion}-${patchouliVersion}"
+    modRuntimeOnly "maven.modrinth:hexgloop:$minecraftVersion-$hexgloopVersion-forge"
+    modRuntimeOnly "maven.modrinth:wnboi:$wnboiVersion-forge"
 
     runtimeOnly "thedarkcolour:kotlinforforge:$project.forgeKotlinVersion"
 

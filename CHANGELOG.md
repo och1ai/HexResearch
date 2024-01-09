@@ -2,6 +2,8 @@
 
 == 0.1.2 ==
 
+* HexGloop Interop
+  * Imbue Mind now works with the HexGloop Flayer's Table
 * Bugfixes
   * Cognitive Inducer may now spend all of its stored media
   * Mishaps for failed Mind Imbue casts now use the correct localization key

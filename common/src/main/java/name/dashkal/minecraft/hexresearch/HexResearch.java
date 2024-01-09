@@ -4,6 +4,7 @@ import name.dashkal.minecraft.hexresearch.config.ClientConfig;
 import name.dashkal.minecraft.hexresearch.config.CommonConfig;
 import name.dashkal.minecraft.hexresearch.config.ServerConfig;
 import name.dashkal.minecraft.hexresearch.event.Events;
+import name.dashkal.minecraft.hexresearch.interop.Interop;
 import name.dashkal.minecraft.hexresearch.registry.*;
 import name.dashkal.minecraft.hexresearch.network.Networking;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +44,9 @@ public class HexResearch {
 
         // HexResearch internals
         HRMindHarms.init();
+
+        // Interop
+        Interop.init();
 
         //LOGGER.debug(HexResearchAbstractions.getConfigDirectory().toAbsolutePath().normalize().toString());
     }

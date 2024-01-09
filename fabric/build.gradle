@@ -12,6 +12,13 @@ architectury {
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runs {
+        client {
+            // Randomly Generated UUID
+            programArgs(["--username", "Dev", "--uuid", "cfaa6ba3-8f1f-4310-9223-5877012f7719"])
+        }
+    }
 }
 
 configurations {
@@ -60,6 +67,9 @@ dependencies {
     include "io.github.tropheusj:serialization-hooks:${serializationHooksVersion}"
 
     modImplementation "dev.emi:trinkets:${trinketsVersion}"
+
+    modImplementation "maven.modrinth:hexgloop:$minecraftVersion-$hexgloopVersion-fabric"
+    modImplementation "maven.modrinth:wnboi:$wnboiVersion-fabric"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
