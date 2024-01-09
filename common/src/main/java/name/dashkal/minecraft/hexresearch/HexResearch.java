@@ -12,8 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This is effectively the loading entrypoint for most of your code, at least
- * if you are using Architectury as intended.
+ * Common entry point for HexResearch.
+ * <p>
+ * See HexResearchForge and HexResearchFabric for the per-platform entry points.
  */
 public class HexResearch {
     public static final String MOD_ID = "hexresearch";
@@ -25,7 +26,6 @@ public class HexResearch {
 
     public static void init() {
         LOGGER.info("Hex Research Initializing");
-        LOGGER.debug("Logger name: " + LOGGER.getName());
 
         // Minecraft / Forge / Fabric Registries
         HRBlocks.init();
@@ -47,8 +47,6 @@ public class HexResearch {
 
         // Interop
         Interop.init();
-
-        //LOGGER.debug(HexResearchAbstractions.getConfigDirectory().toAbsolutePath().normalize().toString());
     }
 
     public static ClientConfig getClientConfig() {

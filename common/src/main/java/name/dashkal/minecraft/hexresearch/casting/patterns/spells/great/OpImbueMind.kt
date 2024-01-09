@@ -12,14 +12,12 @@ import at.petrak.hexcasting.api.utils.asTranslatedComponent
 import at.petrak.hexcasting.common.recipe.BrainsweepRecipe
 import at.petrak.hexcasting.common.recipe.HexRecipeStuffRegistry
 import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity
-import name.dashkal.minecraft.hexresearch.util.Mind
 import name.dashkal.minecraft.hexresearch.casting.mishaps.MishapBadMindImbue
-import name.dashkal.minecraft.hexresearch.interop.HexGloopInterOp
 import name.dashkal.minecraft.hexresearch.interop.Interop
+import name.dashkal.minecraft.hexresearch.util.Mind
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec3
-import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 class OpImbueMind : SpellAction {
@@ -49,7 +47,7 @@ class OpImbueMind : SpellAction {
         // Grab the target block
         val state = ctx.world.getBlockState(targetBlockPos)
 
-        // HexGloop Interop - Support IDynamicTarget
+        // HexGloop Interop
         val r = Interop.getHexGloop().offerMind(ctx, targetBlockPos, mind);
         val spell = if (r.isPresent) {
             // HexGloop accepted it

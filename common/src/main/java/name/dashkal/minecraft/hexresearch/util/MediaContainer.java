@@ -50,19 +50,21 @@ public class MediaContainer implements WorldlyContainer {
      *
      * @param itemStack the media item to add
      * @param simulate if true, no media will actually be added, but the ItemStack will <em>still be modified</em>
+     * @return <code>true</code>, if the insert accepted any media
      */
-    public void insertMedia(@Nonnull ItemStack itemStack, boolean simulate) {
+    public boolean insertMedia(@Nonnull ItemStack itemStack, boolean simulate) {
         if (infinite || getRemainingCapacity() <= 0) {
-            return;
+            return false;
         }
 
         if (itemStack.is(HexItems.CREATIVE_UNLOCKER)) {
             itemStack.shrink(1);
             setInfinite(true);
+            return true;
         }
 
         int extracted = extractMediaFromItem(itemStack, simulate);
-        addMedia(extracted);
+        return addMedia(extracted) > 0;
     }
 
     /**

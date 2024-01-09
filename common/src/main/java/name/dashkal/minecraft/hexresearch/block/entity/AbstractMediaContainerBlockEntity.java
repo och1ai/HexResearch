@@ -89,9 +89,12 @@ public abstract class AbstractMediaContainerBlockEntity extends BlockEntity impl
 
     // MediaContainer delegates
 
-    public void insertMedia(@Nonnull ItemStack itemStack, boolean simulate) {
-        mediaContainer.insertMedia(itemStack, simulate);
-        onMediaContainerUpdated();
+    public boolean insertMedia(@Nonnull ItemStack itemStack, boolean simulate) {
+        boolean r = mediaContainer.insertMedia(itemStack, simulate);
+        if (!simulate) {
+            onMediaContainerUpdated();
+        }
+        return r;
     }
 
     public int extractMediaFromItem(@Nonnull ItemStack itemStack, boolean simulate) {

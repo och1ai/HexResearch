@@ -1,11 +1,17 @@
 package name.dashkal.minecraft.hexresearch.block;
 
+import at.petrak.hexcasting.api.utils.MediaHelper;
 import name.dashkal.minecraft.hexresearch.HexResearch;
+import name.dashkal.minecraft.hexresearch.block.entity.AbstractMediaContainerBlockEntity;
 import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -18,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -60,6 +67,22 @@ public class CognitiveInducerBlock extends Block implements EntityBlock {
                 );
             }
             return instance;
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Nonnull
+    @Override
+    public InteractionResult use(@Nonnull BlockState blockState, @Nonnull Level level, @Nonnull BlockPos blockPos, @Nonnull Player player, @Nonnull InteractionHand interactionHand, @Nonnull BlockHitResult blockHitResult) {
+        if (level.getBlockEntity(blockPos) instanceof AbstractMediaContainerBlockEntity mcbe) {
+            ItemStack item = player.getItemInHand(interactionHand);
+            if (MediaHelper.isMediaItem(item)) {
+                return mcbe.insertMedia(item, false) ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
+            } else {
+                return InteractionResult.PASS;
+            }
+        } else {
+            return InteractionResult.PASS;
         }
     }
 

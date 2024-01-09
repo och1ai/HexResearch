@@ -30,7 +30,7 @@ public class HexGloopInterOp {
     }
 
     /**
-     * Offers a mind to HexGloop (IDynamicTarget) to see if it wants to accept the mind.
+     * Offers a mind to HexGloop (IDynamicFlayTarget) to see if it wants to accept the mind.
      *
      * @param ctx the casting context in which we are imbuing
      * @param blockPos block position of the target block

@@ -2,6 +2,8 @@
 
 == 0.1.2 ==
 
+* Cognitive Inducer
+  * Allow right-clicking media to fill the inducer
 * HexGloop Interop
   * Imbue Mind now works with the HexGloop Flayer's Table
 * Bugfixes
