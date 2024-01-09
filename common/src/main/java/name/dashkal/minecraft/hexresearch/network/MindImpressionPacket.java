@@ -51,7 +51,9 @@ public class MindImpressionPacket {
         BlockPos blockPos = buf.readBlockPos();
 
         if (context.getEnvironment() == Env.CLIENT) {
-            CognitiveInducerClient.handleParticlePacket(dimensionId, entityId, blockPos);
+            context.queue(() -> {
+                CognitiveInducerClient.handleParticlePacket(dimensionId, entityId, blockPos);
+            });
         }
     }
 }
