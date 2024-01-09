@@ -29,14 +29,14 @@ class OpImbueMind : SpellAction {
         ctx.assertVecInRange(sourceMindPos)
         ctx.assertVecInRange(targetBlockPos)
 
-        // Confirm we have a source artificial mind
+        // Confirm we have a source cognitive inducer
         val artificialMind = ctx.world.getBlockEntity(sourceMindPos)
         if (artificialMind == null || artificialMind !is CognitiveInducerBlockEntity) {
-            throw MishapBadBlock(sourceMindPos, "text.hexresearch.imbue_mind.artificial_mind".asTranslatedComponent)
+            throw MishapBadBlock(sourceMindPos, "text.hexresearch.imbue_mind.cognitive_inducer".asTranslatedComponent)
         }
-        // Confirm the artificail mind has a mind to provide
+        // Confirm the Cognitive Inducer has an artificial mind to provide
         val mind = artificialMind.impressedMind.getOrNull()
-            ?: throw MishapBadBlock(sourceMindPos, "text.hexresearch.imbue_mind.artificial_mind".asTranslatedComponent)
+            ?: throw MishapBadBlock(sourceMindPos, "text.hexresearch.imbue_mind.cognitive_inducer".asTranslatedComponent)
 
         // Copied from OpBrainsweep - I should figure out what this means.
         if (!ctx.canEditBlockAt(targetBlockPos)) {

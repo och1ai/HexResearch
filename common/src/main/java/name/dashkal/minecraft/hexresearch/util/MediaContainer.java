@@ -112,7 +112,7 @@ public class MediaContainer implements WorldlyContainer {
             return true;
         }
 
-        if (currentMedia > amount) {
+        if (currentMedia >= amount) {
             this.currentMedia -= amount;
             return true;
         }

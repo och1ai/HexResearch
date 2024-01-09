@@ -1,5 +1,11 @@
 = Changelog =
 
+== 0.1.2 ==
+
+* Bugfixes
+  * Cognitive Inducer may now spend all of its stored media
+  * Mishaps for failed Mind Imbue casts now use the correct localization key
+
 == 0.1.1 ==
 
 * Bugfixes
