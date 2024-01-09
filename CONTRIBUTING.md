@@ -2,10 +2,12 @@
 
 ## Development
 
-* @dashkal12
+* @dashkal16
   * Primary Developer
 * @SamsTheNerd
   * Development Guidance and our lovely Logo
+* @object-Object
+  * Hexdoc
 
 ## Translators
 
