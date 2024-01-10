@@ -4,7 +4,6 @@ import at.petrak.hexcasting.api.spell.casting.CastingContext;
 import name.dashkal.minecraft.hexresearch.interop.impl.HexGloopInteropImpl;
 import name.dashkal.minecraft.hexresearch.util.Mind;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 
 import java.util.Optional;
 

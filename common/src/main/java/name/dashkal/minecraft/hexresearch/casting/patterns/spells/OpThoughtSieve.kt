@@ -16,10 +16,10 @@ import at.petrak.hexcasting.common.entities.EntityWallScroll
 import at.petrak.hexcasting.common.items.ItemScroll
 import at.petrak.hexcasting.common.misc.Brainsweeping
 import name.dashkal.minecraft.hexresearch.HexResearch
-import name.dashkal.minecraft.hexresearch.mindharm.MindHarmLogic
 import name.dashkal.minecraft.hexresearch.casting.mishaps.MishapNotPerWorldPattern
 import name.dashkal.minecraft.hexresearch.casting.mishaps.MishapNotScroll
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect
+import name.dashkal.minecraft.hexresearch.mindharm.MindHarmLogic
 import name.dashkal.minecraft.hexresearch.network.Networking
 import name.dashkal.minecraft.hexresearch.util.Either
 import name.dashkal.minecraft.hexresearch.util.HexPatternMatch

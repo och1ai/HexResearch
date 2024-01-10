@@ -1,7 +1,5 @@
 package name.dashkal.minecraft.hexresearch.mindharm;
 
-import java.util.Comparator;
-
 public enum MindHarmSeverity {
     /** Harms that can be reversed without need for magic */
     REVERSIBLE,

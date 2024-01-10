@@ -1,6 +1,5 @@
 package name.dashkal.minecraft.hexresearch.registry;
 
-import name.dashkal.minecraft.hexresearch.mindharm.MindHarmMechanic;
 import name.dashkal.minecraft.hexresearch.mindharm.*;
 import net.minecraft.resources.ResourceLocation;
 

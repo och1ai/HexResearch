@@ -10,7 +10,6 @@ import name.dashkal.minecraft.hexresearch.util.Some
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.item.DyeColor
-import net.minecraft.world.item.ItemStack
 
 class MishapNotCaptureShard(val hand: Option<InteractionHand>, val shouldBeFilled: Boolean) : Mishap() {
     override fun accentColor(ctx: CastingContext, errorCtx: Context): FrozenColorizer =
