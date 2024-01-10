@@ -5,6 +5,7 @@
   * See "Future Plans" in README.md
 
 ## 1.0.0
+* Set up hexdoc Pypi publishing
 * Advancements
   * Use advancements to guide progression through the mod
   * Only if there's enough progression to warrant it
