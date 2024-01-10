@@ -2,6 +2,7 @@ package name.dashkal.minecraft.hexresearch.forge;
 
 import dev.architectury.platform.forge.EventBuses;
 import name.dashkal.minecraft.hexresearch.HexResearch;
+import name.dashkal.minecraft.hexresearch.forge.config.HexResearchConfigForgeImpl;
 import name.dashkal.minecraft.hexresearch.forge.event.Events;
 import name.dashkal.minecraft.hexresearch.forge.xplat.ForgeXPlatAPIImpl;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,6 +22,7 @@ public class HexResearchForge {
         bus.addListener(HexResearchClientForge::init);
 
         ForgeXPlatAPIImpl.init();
+        HexResearchConfigForgeImpl.init();
         HexResearch.init();
         Events.init();
     }

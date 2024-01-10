@@ -37,6 +37,9 @@
     "architectury": ">=6.5.85",
     "hexcasting": ">=0.10.3"
   },
+  "suggests": {
+    "hexgloop": "0.2.x"
+  },
   "custom": {
     "cardinal-components": [
       "hexresearch:ci_mark"

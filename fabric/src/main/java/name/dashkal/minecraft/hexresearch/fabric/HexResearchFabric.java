@@ -1,5 +1,8 @@
 package name.dashkal.minecraft.hexresearch.fabric;
 
+import name.dashkal.minecraft.hexresearch.fabric.config.HexResearchConfigFabricImpl;
+import name.dashkal.minecraft.hexresearch.fabric.event.EventsFabric;
+import name.dashkal.minecraft.hexresearch.fabric.network.NetworkingFabric;
 import name.dashkal.minecraft.hexresearch.fabric.xplat.FabricXPlatAPIImpl;
 import net.fabricmc.api.ModInitializer;
 import name.dashkal.minecraft.hexresearch.HexResearch;
@@ -16,6 +19,9 @@ public class HexResearchFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         FabricXPlatAPIImpl.init();
+        HexResearchConfigFabricImpl.init();
+        EventsFabric.init();
+        NetworkingFabric.init();
         HexResearch.init();
     }
 }

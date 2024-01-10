@@ -9,7 +9,7 @@ import net.minecraft.world.entity.npc.Villager;
 
 public class FabricXPlatAPIImpl extends XPlatAPI {
     public static void init() {
-        XPlatAPI.INSTANCE = new FabricXPlatAPIImpl();
+        XPlatAPI.instance = new FabricXPlatAPIImpl();
     }
 
     @Override

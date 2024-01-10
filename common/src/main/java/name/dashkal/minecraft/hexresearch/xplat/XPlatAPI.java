@@ -11,10 +11,10 @@ import net.minecraft.world.entity.npc.Villager;
  */
 public abstract class XPlatAPI {
     // Initialized in the forge and fabric mod initializers
-    protected static XPlatAPI INSTANCE = null;
+    protected static XPlatAPI instance = null;
 
     /** Returns an instance of this API appropriate for the current platform */
-    public static XPlatAPI getInstance() { return INSTANCE; }
+    public static XPlatAPI getInstance() { return instance; }
 
     /** Returns the Mind Fatigue potion effect. */
     public abstract MindFatigueEffect getMindFatigueEffect();

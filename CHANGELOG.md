@@ -1,5 +1,11 @@
 = Changelog =
 
+== 0.1.3 ==
+
+* Implemented Configuration
+* Marked HexGloop as an optional dependency in mod metadata
+* Updated zh_ch - ChuijkYahus
+
 == 0.1.2 ==
 
 * Cognitive Inducer

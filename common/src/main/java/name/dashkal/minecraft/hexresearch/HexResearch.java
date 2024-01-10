@@ -2,6 +2,7 @@ package name.dashkal.minecraft.hexresearch;
 
 import name.dashkal.minecraft.hexresearch.config.ClientConfig;
 import name.dashkal.minecraft.hexresearch.config.CommonConfig;
+import name.dashkal.minecraft.hexresearch.config.HexResearchConfig;
 import name.dashkal.minecraft.hexresearch.config.ServerConfig;
 import name.dashkal.minecraft.hexresearch.event.Events;
 import name.dashkal.minecraft.hexresearch.interop.Interop;
@@ -19,10 +20,6 @@ import org.apache.logging.log4j.Logger;
 public class HexResearch {
     public static final String MOD_ID = "hexresearch";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-
-    private static final ClientConfig clientConfig = ClientConfig.getDefault();
-    private static final CommonConfig commonConfig = CommonConfig.getDefault();
-    private static final ServerConfig serverConfig = ServerConfig.getDefault();
 
     public static void init() {
         LOGGER.info("Hex Research Initializing");
@@ -50,15 +47,15 @@ public class HexResearch {
     }
 
     public static ClientConfig getClientConfig() {
-        return clientConfig;
+        return HexResearchConfig.getInstance().getClientConfig();
     }
 
     public static CommonConfig getCommonConfig() {
-        return commonConfig;
+        return HexResearchConfig.getInstance().getCommonConfig();
     }
 
     public static ServerConfig getServerConfig() {
-        return serverConfig;
+        return HexResearchConfig.getInstance().getServerConfig();
     }
 
     /**

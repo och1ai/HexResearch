@@ -43,16 +43,17 @@ public class ScrollSyncPacket {
         int entityId = buf.readInt();
         ItemStack scroll = buf.readItem();
 
-        // Find the matching entity
-        Entity entity = Minecraft.getInstance().level.getEntity(entityId);
-        if (entity != null) {
-            // Found it
-            if (entity instanceof EntityWallScroll) {
-                // It's a wall scroll
-                EntityWallScroll wallScroll = (EntityWallScroll) entity;
-                wallScroll.scroll = scroll;
-                wallScroll.recalculateDisplay();
+        context.queue(() -> {
+            // Find the matching entity
+            Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+            if (entity != null) {
+                // Found it
+                if (entity instanceof EntityWallScroll wallScroll) {
+                    // It's a wall scroll
+                    wallScroll.scroll = scroll;
+                    wallScroll.recalculateDisplay();
+                }
             }
-        }
+        });
     }
 }

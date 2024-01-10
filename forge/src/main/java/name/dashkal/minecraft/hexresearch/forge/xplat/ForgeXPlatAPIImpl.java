@@ -10,7 +10,7 @@ import net.minecraft.world.entity.npc.Villager;
 
 public class ForgeXPlatAPIImpl extends XPlatAPI {
     public static void init() {
-        XPlatAPI.INSTANCE = new ForgeXPlatAPIImpl();
+        XPlatAPI.instance = new ForgeXPlatAPIImpl();
     }
 
     @Override
