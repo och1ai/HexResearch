@@ -119,7 +119,7 @@ public class HexResearchConfigForgeImpl extends HexResearchConfig {
             // Begin Patterns
             builder.comment("Configuration for pattern logic").push("patterns");
             builder.comment("Force HexCasting to regenerate its pattern registry if our per-world patterns are missing");
-            PATTERNS_FORCE_RECALCULATE_MISSING = builder.define("forceRecalculateMissing", DEFAULT.patternConfig().forceRecalcMissing());
+            PATTERNS_FORCE_RECALCULATE_MISSING = builder.define("forceRecalculateMissing", DEFAULT.patternConfig().forceRecalculateMissing());
             // End Patterns
             builder.pop();
 

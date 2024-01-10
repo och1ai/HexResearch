@@ -59,12 +59,10 @@ public class HexResearchConfigFabricImpl extends HexResearchConfig {
     }
 
     public void setServerConfig(ServerConfig serverConfig) {
-        HexResearch.LOGGER.info("HexResearchConfigFabricImpl.setServerConfig() Side = {}", Platform.getEnvironment());
         this.serverConfig.set(serverConfig);
     }
 
     public void loadServerConfig() {
-        HexResearch.LOGGER.info("HexResearchConfigFabricImpl.loadServerConfig() Side = {}", Platform.getEnvironment());
         Path configFolder = Platform.getConfigFolder();
         Path serverConfigFile = configFolder.resolve(String.format("%s-server.json", HexResearch.MOD_ID));
 
@@ -87,7 +85,7 @@ public class HexResearchConfigFabricImpl extends HexResearchConfig {
                 return Optional.empty();
             }
         } catch (Exception e) {
-            throw new RuntimeException("Unable to load from " + path, e);
+            throw new RuntimeException("Unable to load configuration from " + path, e);
         }
     }
 
@@ -99,7 +97,7 @@ public class HexResearchConfigFabricImpl extends HexResearchConfig {
                 gson.toJson(t, cls, jsonWriter);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Unable to save to " + path, e);
+            throw new RuntimeException("Unable to save configuration to " + path, e);
         }
     }
 }

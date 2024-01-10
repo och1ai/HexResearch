@@ -20,7 +20,7 @@ public class PatternFixer {
 
         // If we do not have all our per-world spells, force a recalculation
         if (!perWorldPatternIds.containsAll(HRHexPatterns.PER_WORLD_PATTERN_IDS)) {
-            if (HexResearch.getServerConfig().patternConfig().forceRecalcMissing()) {
+            if (HexResearch.getServerConfig().patternConfig().forceRecalculateMissing()) {
                 HexResearch.LOGGER.warn("Hex Casting Pattern Registry does not have our per-world patterns! Forcing regeneration.");
                 ServerLevel overWorld = serverLevel.getServer().overworld();
                 DimensionDataStorage ds = overWorld.getDataStorage();

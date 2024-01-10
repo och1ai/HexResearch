@@ -5,6 +5,7 @@ import java.util.Map;
 /**
  * Server specific configuration for Hex Research
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class ServerConfig {
     private MindTrainingConfig mindTrainingConfig;
     private PatternConfig patternConfig;
@@ -51,18 +52,17 @@ public class ServerConfig {
      * Configuration for pattern logic
      */
     public static class PatternConfig {
-        boolean forceRecalcMissing;
+        boolean forceRecalculateMissing;
 
         /**
-         * @param forceRecalcMissing if <code>true</code>, force HexCasting to regenerate its pattern registry if our per-world patterns are missing
+         * @param forceRecalculateMissing if <code>true</code>, force HexCasting to regenerate its pattern registry if our per-world patterns are missing
          */
-
-        public PatternConfig(boolean forceRecalcMissing) {
-            this.forceRecalcMissing = forceRecalcMissing;
+        public PatternConfig(boolean forceRecalculateMissing) {
+            this.forceRecalculateMissing = forceRecalculateMissing;
         }
 
-        public boolean forceRecalcMissing() {
-            return forceRecalcMissing;
+        public boolean forceRecalculateMissing() {
+            return forceRecalculateMissing;
         }
     }
 
