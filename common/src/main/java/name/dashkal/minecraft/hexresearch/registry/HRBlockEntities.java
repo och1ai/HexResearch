@@ -25,7 +25,7 @@ public class HRBlockEntities {
     public static RegistrySupplier<BlockEntityType<CognitiveInducerBlockEntity>> ARTIFICIAL_MIND = register(
             CognitiveInducerBlock.ID,
             CognitiveInducerBlockEntity::new,
-            () -> List.of(HRBlocks.ARTIFICIAL_MIND.get())
+            () -> List.of(HRBlocks.COGNITIVE_INDUCER.get())
     );
 
     private static <T extends BlockEntity> RegistrySupplier<BlockEntityType<T>> register(

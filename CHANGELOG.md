@@ -1,5 +1,13 @@
 = Changelog =
 
+== 1.0.0-rc1 ==
+
+* Added comparator support to the Cognitive Infuser
+  * Output is the rank of the enclosed mind
+* Refactored block registration to use the more standard style
+* Refactored out block entity access into its own class
+* Added version to mod initialization log message
+
 == 0.1.3 ==
 
 * Implemented Configuration

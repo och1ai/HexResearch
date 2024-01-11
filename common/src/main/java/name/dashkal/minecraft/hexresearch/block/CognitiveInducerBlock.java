@@ -2,7 +2,6 @@ package name.dashkal.minecraft.hexresearch.block;
 
 import at.petrak.hexcasting.api.utils.MediaHelper;
 import name.dashkal.minecraft.hexresearch.HexResearch;
-import name.dashkal.minecraft.hexresearch.block.entity.AbstractMediaContainerBlockEntity;
 import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -17,13 +16,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -32,7 +28,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CognitiveInducerBlock extends Block implements EntityBlock {
+public class CognitiveInducerBlock extends AbstractBlockEntityBlock<CognitiveInducerBlockEntity> implements EntityBlock {
     public static final ResourceLocation ID = HexResearch.id("cognitive_inducer");
 
     // Exported from BlockBench / Mod Utils
@@ -51,47 +47,40 @@ public class CognitiveInducerBlock extends Block implements EntityBlock {
             Block.box(0, 2, 0, 2, 14, 2)
     );
 
-    private static CognitiveInducerBlock instance;
-
     public CognitiveInducerBlock(Properties properties) {
-        super(properties);
+        super(properties, CognitiveInducerBlockEntity.class, CognitiveInducerBlockEntity::new);
     }
 
-    public static CognitiveInducerBlock getInstance() {
-        synchronized (CognitiveInducerBlock.class) {
-            if (instance == null) {
-                instance = new CognitiveInducerBlock(
-                        Properties.of(Material.STONE, MaterialColor.DEEPSLATE)
-                                .sound(SoundType.DEEPSLATE)
-                                .strength(2f, 4f)
-                );
-            }
-            return instance;
-        }
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean hasAnalogOutputSignal(@Nonnull BlockState blockState) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public int getAnalogOutputSignal(@Nonnull BlockState blockState, @Nonnull Level level, @Nonnull BlockPos blockPos) {
+        return withBlockEntityF(level, blockPos, CognitiveInducerBlockEntity::getAnalogOutputSignal).orElse(0);
     }
 
     @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public InteractionResult use(@Nonnull BlockState blockState, @Nonnull Level level, @Nonnull BlockPos blockPos, @Nonnull Player player, @Nonnull InteractionHand interactionHand, @Nonnull BlockHitResult blockHitResult) {
-        if (level.getBlockEntity(blockPos) instanceof AbstractMediaContainerBlockEntity mcbe) {
+        return withBlockEntityF(level, blockPos, mcbe -> {
             ItemStack item = player.getItemInHand(interactionHand);
             if (MediaHelper.isMediaItem(item)) {
                 return mcbe.insertMedia(item, false) ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
             } else {
                 return InteractionResult.PASS;
             }
-        } else {
-            return InteractionResult.PASS;
-        }
+        }).orElse(InteractionResult.PASS);
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void randomTick(@Nonnull BlockState blockState, @Nonnull ServerLevel serverLevel, @Nonnull BlockPos blockPos, @Nonnull RandomSource randomSource) {
-        if (serverLevel.getBlockEntity(blockPos) instanceof CognitiveInducerBlockEntity be) {
-            be.randomTick(blockState, serverLevel, blockPos, randomSource);
-        }
+        withBlockEntity(serverLevel, blockPos, cibe -> cibe.randomTick(blockState, serverLevel, blockPos, randomSource));
     }
 
     @Override
@@ -104,19 +93,13 @@ public class CognitiveInducerBlock extends Block implements EntityBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level level, @Nonnull BlockState blockState, @Nonnull BlockEntityType<T> blockEntityType) {
         if (level.isClientSide) {
             return (_l, _p, _s, _be) -> {
-                if (_be instanceof CognitiveInducerBlockEntity ambe) {
-                    ambe.tick(_l, _p);
+                if (_be instanceof CognitiveInducerBlockEntity cibe) {
+                    cibe.tick(_l, _p);
                 }
             };
         } else {
             return null;
         }
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos blockPos, @Nonnull BlockState blockState) {
-        return new CognitiveInducerBlockEntity(blockPos, blockState);
     }
 
     @Nullable
@@ -141,10 +124,9 @@ public class CognitiveInducerBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public int getLightBlock(@Nonnull BlockState blockState, BlockGetter blockGetter, @Nonnull BlockPos blockPos) {
-        if (blockGetter.getBlockEntity(blockPos) instanceof CognitiveInducerBlockEntity be) {
-            return be.getImpressedMind().map(m -> m.rank() * 5).orElse(0);
-        }
-        return 0;
+    public int getLightBlock(@Nonnull BlockState blockState, @Nonnull BlockGetter blockGetter, @Nonnull BlockPos blockPos) {
+        return withBlockEntityF(blockGetter, blockPos, cibe ->
+                cibe.getImpressedMind().map(m -> m.rank() * 5).orElse(0)
+        ).orElse(0);
     }
 }

@@ -85,6 +85,13 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         updated();
     }
 
+    /**
+     * Returns a comparator signal from 0-5 indicating the rank of the impressed mind.
+     */
+    public int getAnalogOutputSignal() {
+        return getImpressedMind().map(Mind::rank).orElse(0);
+    }
+
     /** Returns the current amount of media stored in the inducer in raw units. */
     public int getCurrentMedia() {
         return mediaContainer.getCurrentMedia();

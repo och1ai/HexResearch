@@ -20,7 +20,7 @@ public class CognitiveInducerOverlay implements ScryingLensOverlayRegistry.Overl
     public void addLines(List<Pair<ItemStack, Component>> lines, BlockState state, BlockPos pos, Player observer, Level world, Direction hitFace) {
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof CognitiveInducerBlockEntity inducer) {
-            ItemStack ciStack = new ItemStack(HRBlocks.ARTIFICIAL_MIND.get());
+            ItemStack ciStack = new ItemStack(HRBlocks.COGNITIVE_INDUCER.get());
 
             inducer.getImpressedMind().ifPresentOrElse(
                     mind -> { lines.add(Pair.of(ciStack, mind.toComponent())); },
