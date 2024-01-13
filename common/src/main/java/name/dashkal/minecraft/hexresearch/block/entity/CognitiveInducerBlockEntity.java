@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -46,7 +47,7 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
     /** Range of blocks the inducer will search for villagers. Spherical radius. */
     public static final float IMPRESSION_RANGE = 5f;
 
-    /** Cool-down in game ticks before a villager may impress on an inducer again. */
+    /** Cooldown in seconds before a villager may impress on an inducer again. */
     public static final int IMPRESSION_COOLDOWN_SECONDS = 30;
 
     private final Logger logger = HexResearch.LOGGER;
@@ -113,6 +114,11 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
      *                   if <code>false</code>, spawn dark grey particles indicating failure.
      */
     public void impressionParticles(Level level, Villager villager, BlockPos inducerPos, boolean successful) {
+        // This is only sensible on the client
+        if (!level.isClientSide()) {
+            return;
+        }
+
         int[] colorGradient;
 
         if (successful) {
@@ -132,11 +138,13 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         );
     }
 
+    /** Called on random ticks from {@link name.dashkal.minecraft.hexresearch.block.CognitiveInducerBlock#randomTick(BlockState, ServerLevel, BlockPos, RandomSource)}. */
     @SuppressWarnings("unused")
     public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
         takeImpressions(serverLevel, blockPos, randomSource);
     }
 
+    /** Called every tick from {@link name.dashkal.minecraft.hexresearch.block.CognitiveInducerBlock#getTicker(Level, BlockState, BlockEntityType)}. */
     public void tick(@Nonnull Level level, @Nonnull BlockPos blockPos) {
         if (level.getGameTime() % 2 == 0) {
             getImpressedMind().ifPresent(mind -> {
@@ -171,6 +179,9 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
+    /**
+     * Called when we do anything that requires saving.
+     */
     private void updated() {
         setChanged();
         Level level = getLevel();
@@ -179,6 +190,9 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         }
     }
 
+    /**
+     * Takes impressions from any nearby villagers.
+     */
     private void takeImpressions(ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
         logger.debug("CognitiveInducerBlockEntity.takeImpressions()");
 
@@ -192,13 +206,22 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
             return;
         }
 
+        // Limit the number we'll take from
         Stream<Villager> imprintsFrom = nearbyVillagers.stream()
                 .limit(limitImpressions(nearbyVillagers.size(), randomSource));
 
         // If we found any
         imprintsFrom.forEach(takeImpression(serverLevel, blockPos));
+
+        // Mark every one we found, even if the limiter cut them
+        nearbyVillagers.forEach(v -> markVillager(v, serverLevel.getGameTime()));
+
+        updated();
     }
 
+    /**
+     * Finds nearby living and thinking villagers. Returns the list in shuffled order.
+     */
     private List<Villager> findNearbyVillagers(ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
         // Build our search bounding box
         Vec3 blockPosF = Vec3.atCenterOf(blockPos);
@@ -214,12 +237,14 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
                 v.distanceToSqr(blockPosF) <= (IMPRESSION_RANGE * IMPRESSION_RANGE)
                         && v.isAlive()
                         && !Brainsweeping.isBrainswept(v)
-                        && !isRecentlyImpressed(v, serverLevel.getGameTime())
         ));
         shuffleList(villagers, randomSource);
         return villagers;
     }
 
+    /**
+     * Limit impressions to 1 + Log2(n-1)
+     */
     private int limitImpressions(int candidates, RandomSource randomSource) {
         if (candidates > 1) {
             // Select a random set with diminishing returns for more villagers
@@ -239,52 +264,56 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         }
     }
 
+    /**
+     * Takes an impression from a villager.
+     */
     private Consumer<Villager> takeImpression(ServerLevel serverLevel, BlockPos blockPos) {
         ServerConfig.MindTrainingConfig cfg = HexResearch.getServerConfig().mindTrainingConfig();
         return villager -> {
             if (mediaContainer.consumeMedia(cfg.impressionCostDust() * MediaConstants.DUST_UNIT)) {
-                // Add a mark to the villager
-                markVillager(villager, serverLevel.getGameTime());
+                // Check for disqualification due to recent impression or exhaustion
+                boolean willImpress = isReadyForImpression(villager, serverLevel.getGameTime());
 
-                // Last chance to fail - Villager is exhausted due to too many recent marks.
-                if (!isExhausted(villager, serverLevel.getGameTime())) {
+                if (willImpress) {
                     // Impress them into the artificial mind
                     impressMind(
                             Registry.VILLAGER_PROFESSION.getKey(villager.getVillagerData().getProfession()),
                             Registry.VILLAGER_TYPE.getKey(villager.getVillagerData().getType()),
                             villager.getVillagerData().getLevel()
                     );
-
-                    // Send a packet for the particle burst
-                    Networking.sendMindImpression(serverLevel, villager, blockPos, true);
-                } else {
-                    // Send a packet for the particle burst
-                    Networking.sendMindImpression(serverLevel, villager, blockPos, false);
                 }
+
+                Networking.sendMindImpression(serverLevel, villager, blockPos, willImpress);
             }
         };
     }
 
+    /**
+     * Checks for recent or too many marks.
+     */
+    private static boolean isReadyForImpression(Villager villager, long worldTime) {
+        SortedSet<Long> marks = getVillagerMarks(villager, worldTime);
+        boolean recentlyMarked = !marks.isEmpty() && marks.last() > (worldTime - (IMPRESSION_COOLDOWN_SECONDS * 20L));
+
+        int numMarks = marks.size();
+        int maxMarks = HexResearch.getServerConfig().mindTrainingConfig().requiredRankImpressions().getOrDefault(villager.getVillagerData().getLevel(), Integer.MAX_VALUE);
+        boolean exhausted = numMarks > maxMarks;
+
+        return !recentlyMarked && !exhausted;
+    }
+
+    /** Marks a villager as having been touched by a Cognitive Inducer. */
     private static void markVillager(Villager villager, long gameTime) {
         XPlatAPI.getInstance().cognitiveInducerMarkVillager(villager, gameTime);
     }
 
+    /** Gets any marks on a villager, pruning any that should expire. */
     private static SortedSet<Long> getVillagerMarks(Villager villager, long worldTime) {
         XPlatAPI.getInstance().cognitiveInducerPruneMarks(villager, worldTime);
         return XPlatAPI.getInstance().cognitiveInducerGetMarks(villager);
     }
 
-    private static boolean isRecentlyImpressed(Villager villager, long worldTime) {
-        SortedSet<Long> marks = getVillagerMarks(villager, worldTime);
-        return !marks.isEmpty() && marks.last() > (worldTime - (IMPRESSION_COOLDOWN_SECONDS * 20L));
-    }
-
-    private static boolean isExhausted(Villager villager, long worldTime) {
-        int numMarks = getVillagerMarks(villager, worldTime).size();
-        int maxMarks = HexResearch.getServerConfig().mindTrainingConfig().requiredRankImpressions().getOrDefault(villager.getVillagerData().getLevel(), Integer.MAX_VALUE);
-        return numMarks > maxMarks;
-    }
-
+    /** Shuffles the order of elements in a list by swapping each element with a random index. */
     private static <T> void shuffleList(List<T> list, RandomSource random) {
         if (list.isEmpty()) {
             return;
