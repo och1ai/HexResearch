@@ -48,6 +48,10 @@ subprojects {
 
     sourceSets.main.kotlin.srcDirs += 'src/main/java'
     sourceSets.main.resources.srcDirs += "src/generated/resources"
+
+    tasks.withType(Javadoc).configureEach {
+        options.addBooleanOption('Xdoclint:none', true)
+    }
 }
 
 allprojects {
