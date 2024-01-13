@@ -17,7 +17,7 @@
   * Does not naturally regenerate (use the regen zenith to heal)
 
 ## Minor Features
-* Cognitive Infuser
+* Cognitive Inducer
   * New Model?
     * Pedestal
     * If something sided, can change the search area to be projected out from the direction it points

@@ -36,9 +36,14 @@ public abstract class AbstractMediaContainerBlockEntity extends BlockEntity impl
         this.mediaContainer = new MediaContainer(initialMedia, maxMedia);
     }
 
-    /** Called when the media container changes via this class's delegate methods. */
+    /**
+     * Called when the media container changes via this class's delegate methods.
+     * <p>
+     * Default implementation is to invoke {@link BlockEntity#setChanged()}.
+     * </p>
+     */
     protected void onMediaContainerUpdated() {
-
+        setChanged();
     };
 
     /** Returns the current stored media amount. */
@@ -154,12 +159,6 @@ public abstract class AbstractMediaContainerBlockEntity extends BlockEntity impl
     public void setItem(int i, @Nonnull ItemStack itemStack) {
         mediaContainer.setItem(i, itemStack);
         onMediaContainerUpdated();
-    }
-
-    @Override
-    public void setChanged() {
-        super.setChanged();
-        mediaContainer.setChanged();
     }
 
     @Override

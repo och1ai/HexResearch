@@ -1,28 +1,46 @@
 package name.dashkal.minecraft.hexresearch.fabric.cc;
 
+import name.dashkal.minecraft.hexresearch.HexResearch;
 import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 
+import java.util.Arrays;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
 public class CognitiveInducerMarkComponentImpl implements CognitiveInducerMarkComponent {
-    private long expirationTime = 0;
+    private static final String TAG_MARKS = "marks";
+
+    private SortedSet<Long> marks = new TreeSet<>();
 
     @Override
-    public long getExpirationTimeTicks() {
-        return expirationTime;
+    public void mark(long gameTime) {
+        marks.add(gameTime);
     }
 
     @Override
-    public void setMark(long expirationTimeTicks) {
-        this.expirationTime = expirationTimeTicks;
+    public SortedSet<Long> getMarks() {
+        return marks;
+    }
+
+    @Override
+    public void pruneMarks(long gameTime) {
+        long expirationTimeSeconds = HexResearch.getServerConfig().mindTrainingConfig().impressionMarkExpirationTimeSeconds();
+        long expiration = gameTime - (expirationTimeSeconds * 20L);
+        while (!marks.isEmpty() && (marks.first() <= expiration)) {
+            marks.remove(marks.first());
+        }
     }
 
     @Override
     public void readFromNbt(CompoundTag tag) {
-        this.expirationTime = tag.getLong(CognitiveInducerBlockEntity.TAG_VILLAGER_MARKED);
+        long[] rawMarks = tag.getLongArray(TAG_MARKS);
+        marks = Arrays.stream(rawMarks).boxed().collect(Collectors.toCollection(TreeSet::new));
     }
 
     @Override
     public void writeToNbt(CompoundTag tag) {
-        tag.putLong(CognitiveInducerBlockEntity.TAG_VILLAGER_MARKED, expirationTime);
+        tag.putLongArray(TAG_MARKS, marks.stream().toList());
     }
 }

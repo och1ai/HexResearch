@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.SortedSet;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -41,12 +42,12 @@ import java.util.stream.Stream;
  */
 public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEntity {
     public static final String TAG_IMPRESSIONS = "impressions";
-    public static final String TAG_VILLAGER_MARKED = "markExpiration";
 
     /** Range of blocks the inducer will search for villagers. Spherical radius. */
     public static final float IMPRESSION_RANGE = 5f;
+
     /** Cool-down in game ticks before a villager may impress on an inducer again. */
-    public static final long markExpirationTicks = 20 * 30; // 30 Seconds
+    public static final int IMPRESSION_COOLDOWN_SECONDS = 30;
 
     private final Logger logger = HexResearch.LOGGER;
 
@@ -102,12 +103,31 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         updated();
     }
 
-    public void impressionParticles(Level level, Villager villager, BlockPos inducerPos) {
+    /**
+     * Spawn particles indicating a mind impression was taken.
+     *
+     * @param level the world to spawn the particles in
+     * @param villager the villager the particles should spawn from
+     * @param inducerPos the position of the cognitive inducer taking the impression
+     * @param successful if <code>true</code>, spawn mind colored particles.
+     *                   if <code>false</code>, spawn dark grey particles indicating failure.
+     */
+    public void impressionParticles(Level level, Villager villager, BlockPos inducerPos, boolean successful) {
+        int[] colorGradient;
+
+        if (successful) {
+            // Color from the villager's mind for successful impressions
+            colorGradient = Mind.fromVillager(villager).getColorGradient();
+        } else {
+            // Dark grey for failed impressions
+            colorGradient = new int[] { 0x101010, 0x505050 };
+        }
+
         HRParticleUtils.spawnHexConjuredParticles(
                 level,
                 villager.getEyePosition(),
                 HRParticleUtils.aToBParticleVector(villager.getEyePosition(), Vec3.atCenterOf(inducerPos)),
-                Mind.fromVillager(villager).getColorGradient(),
+                colorGradient,
                 10
         );
     }
@@ -194,7 +214,7 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
                 v.distanceToSqr(blockPosF) <= (IMPRESSION_RANGE * IMPRESSION_RANGE)
                         && v.isAlive()
                         && !Brainsweeping.isBrainswept(v)
-                        && !isVillagerMarked(v, serverLevel.getGameTime())
+                        && !isRecentlyImpressed(v, serverLevel.getGameTime())
         ));
         shuffleList(villagers, randomSource);
         return villagers;
@@ -223,28 +243,46 @@ public class CognitiveInducerBlockEntity extends AbstractMediaContainerBlockEnti
         ServerConfig.MindTrainingConfig cfg = HexResearch.getServerConfig().mindTrainingConfig();
         return villager -> {
             if (mediaContainer.consumeMedia(cfg.impressionCostDust() * MediaConstants.DUST_UNIT)) {
-                // Impress them into the artificial mind
-                impressMind(
-                        Registry.VILLAGER_PROFESSION.getKey(villager.getVillagerData().getProfession()),
-                        Registry.VILLAGER_TYPE.getKey(villager.getVillagerData().getType()),
-                        villager.getVillagerData().getLevel()
-                );
+                // Add a mark to the villager
+                markVillager(villager, serverLevel.getGameTime());
 
-                // And mark them so that they're disqualified from imprinting for a while
-                markVillager(villager, serverLevel.getGameTime() + markExpirationTicks);
+                // Last chance to fail - Villager is exhausted due to too many recent marks.
+                if (!isExhausted(villager, serverLevel.getGameTime())) {
+                    // Impress them into the artificial mind
+                    impressMind(
+                            Registry.VILLAGER_PROFESSION.getKey(villager.getVillagerData().getProfession()),
+                            Registry.VILLAGER_TYPE.getKey(villager.getVillagerData().getType()),
+                            villager.getVillagerData().getLevel()
+                    );
 
-                // Send a packet for the particle burst
-                Networking.sendMindImpression(serverLevel, villager, blockPos);
+                    // Send a packet for the particle burst
+                    Networking.sendMindImpression(serverLevel, villager, blockPos, true);
+                } else {
+                    // Send a packet for the particle burst
+                    Networking.sendMindImpression(serverLevel, villager, blockPos, false);
+                }
             }
         };
     }
 
-    private static void markVillager(Villager villager, long expiration) {
-        XPlatAPI.getInstance().cognitiveInducerMarkVillager(villager, expiration);
+    private static void markVillager(Villager villager, long gameTime) {
+        XPlatAPI.getInstance().cognitiveInducerMarkVillager(villager, gameTime);
     }
 
-    private static boolean isVillagerMarked(Villager villager, long worldTime) {
-        return XPlatAPI.getInstance().cognitiveInducerIsVillagerMarked(villager, worldTime);
+    private static SortedSet<Long> getVillagerMarks(Villager villager, long worldTime) {
+        XPlatAPI.getInstance().cognitiveInducerPruneMarks(villager, worldTime);
+        return XPlatAPI.getInstance().cognitiveInducerGetMarks(villager);
+    }
+
+    private static boolean isRecentlyImpressed(Villager villager, long worldTime) {
+        SortedSet<Long> marks = getVillagerMarks(villager, worldTime);
+        return !marks.isEmpty() && marks.last() > (worldTime - (IMPRESSION_COOLDOWN_SECONDS * 20L));
+    }
+
+    private static boolean isExhausted(Villager villager, long worldTime) {
+        int numMarks = getVillagerMarks(villager, worldTime).size();
+        int maxMarks = HexResearch.getServerConfig().mindTrainingConfig().requiredRankImpressions().getOrDefault(villager.getVillagerData().getLevel(), Integer.MAX_VALUE);
+        return numMarks > maxMarks;
     }
 
     private static <T> void shuffleList(List<T> list, RandomSource random) {

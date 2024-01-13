@@ -1,8 +1,14 @@
 = Changelog =
 
+== 1.0.0-rc2 ==
+* Cognitive Inducer
+  * No longer able to continuously farm minds from a single villager
+    * Impression marks are retained for one hour (configurable)
+    * If a villager has as many marks as is required for their own level of mind (as per config), they no longer contribute.
+
 == 1.0.0-rc1 ==
 
-* Added comparator support to the Cognitive Infuser
+* Added comparator support to the Cognitive Inducer
   * Output is the rank of the enclosed mind
 * Refactored block registration to use the more standard style
 * Refactored out block entity access into its own class

@@ -66,12 +66,10 @@ public class HexResearchConfigFabricImpl extends HexResearchConfig {
         Path configFolder = Platform.getConfigFolder();
         Path serverConfigFile = configFolder.resolve(String.format("%s-server.json", HexResearch.MOD_ID));
 
-        Optional<ServerConfig> serverConfig = load(serverConfigFile, ServerConfig.class);
-        if (serverConfig.isEmpty()) {
-            save(serverConfigFile, ServerConfig.getDefault(), ServerConfig.class);
-        }
+        ServerConfig serverConfig = load(serverConfigFile, ServerConfig.class).orElse(ServerConfig.getDefault());
+        save(serverConfigFile, ServerConfig.getDefault(), ServerConfig.class);
 
-        this.serverConfig.set(serverConfig.orElse(ServerConfig.getDefault()));
+        this.serverConfig.set(serverConfig);
     }
 
     private <T> Optional<T> load(Path path, Class<T> cls) {

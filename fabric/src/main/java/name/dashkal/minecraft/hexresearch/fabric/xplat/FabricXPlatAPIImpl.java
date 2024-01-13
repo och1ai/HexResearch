@@ -1,11 +1,13 @@
 package name.dashkal.minecraft.hexresearch.fabric.xplat;
 
+import name.dashkal.minecraft.hexresearch.HexResearch;
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
-import name.dashkal.minecraft.hexresearch.fabric.cc.CognitiveInducerMarkComponent;
 import name.dashkal.minecraft.hexresearch.fabric.cc.HexResearchCC;
 import name.dashkal.minecraft.hexresearch.fabric.effect.MindFatigueEffectImpl;
 import name.dashkal.minecraft.hexresearch.xplat.XPlatAPI;
 import net.minecraft.world.entity.npc.Villager;
+
+import java.util.SortedSet;
 
 public class FabricXPlatAPIImpl extends XPlatAPI {
     public static void init() {
@@ -18,13 +20,17 @@ public class FabricXPlatAPIImpl extends XPlatAPI {
     }
 
     @Override
-    public void cognitiveInducerMarkVillager(Villager villager, long expirationTime) {
-        HexResearchCC.COGNITIVE_INDUCER_MARK.get(villager).setMark(expirationTime);
+    public void cognitiveInducerMarkVillager(Villager villager, long gameTime) {
+        HexResearchCC.COGNITIVE_INDUCER_MARK.get(villager).mark(gameTime);
     }
 
     @Override
-    public boolean cognitiveInducerIsVillagerMarked(Villager villager, long worldTime) {
-        CognitiveInducerMarkComponent c = HexResearchCC.COGNITIVE_INDUCER_MARK.get(villager);
-        return c.getExpirationTimeTicks() > worldTime;
+    public SortedSet<Long> cognitiveInducerGetMarks(Villager villager) {
+        return HexResearchCC.COGNITIVE_INDUCER_MARK.get(villager).getMarks();
+    }
+
+    @Override
+    public void cognitiveInducerPruneMarks(Villager villager, long gameTime) {
+        HexResearchCC.COGNITIVE_INDUCER_MARK.get(villager).pruneMarks(gameTime);
     }
 }

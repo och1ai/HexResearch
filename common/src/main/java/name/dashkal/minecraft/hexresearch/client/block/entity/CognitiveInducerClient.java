@@ -9,7 +9,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.Level;
 
 public class CognitiveInducerClient {
-    public static void handleParticlePacket(ResourceLocation dimensionId, int entityId, BlockPos blockPos) {
+    public static void handleParticlePacket(ResourceLocation dimensionId, int entityId, BlockPos blockPos, boolean successful) {
         // Find the matching entity
         Level level = Minecraft.getInstance().level;
 
@@ -18,7 +18,7 @@ public class CognitiveInducerClient {
             if (entity instanceof Villager villager
                     && level.getBlockEntity(blockPos) instanceof CognitiveInducerBlockEntity cibe) {
                 // Found it
-                cibe.impressionParticles(level, villager, blockPos);
+                cibe.impressionParticles(level, villager, blockPos, successful);
             }
         }
     }

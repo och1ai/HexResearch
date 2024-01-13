@@ -16,17 +16,20 @@ public class MindImpressionPacket {
     private final ResourceLocation dimensionId;
     private final int entityId;
     private final BlockPos inducerPos;
+    private final boolean successful;
 
     private final FriendlyByteBuf buf;
 
-    public MindImpressionPacket(ResourceLocation dimensionId, int entityId, BlockPos inducerPos) {
+    public MindImpressionPacket(ResourceLocation dimensionId, int entityId, BlockPos inducerPos, boolean successful) {
         this.dimensionId = dimensionId;
         this.entityId = entityId;
         this.inducerPos = inducerPos;
+        this.successful = successful;
         this.buf = new FriendlyByteBuf(Unpooled.buffer());
         this.buf.writeResourceLocation(dimensionId);
         this.buf.writeInt(entityId);
         this.buf.writeBlockPos(inducerPos);
+        this.buf.writeBoolean(successful);
     }
 
     public ResourceLocation getDimensionId() {
@@ -49,10 +52,11 @@ public class MindImpressionPacket {
         ResourceLocation dimensionId = buf.readResourceLocation();
         int entityId = buf.readInt();
         BlockPos blockPos = buf.readBlockPos();
+        boolean successful = buf.readBoolean();
 
         if (context.getEnvironment() == Env.CLIENT) {
             context.queue(() -> {
-                CognitiveInducerClient.handleParticlePacket(dimensionId, entityId, blockPos);
+                CognitiveInducerClient.handleParticlePacket(dimensionId, entityId, blockPos, successful);
             });
         }
     }

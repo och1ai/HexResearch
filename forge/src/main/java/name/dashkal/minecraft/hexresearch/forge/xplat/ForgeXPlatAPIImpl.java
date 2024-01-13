@@ -1,12 +1,12 @@
 package name.dashkal.minecraft.hexresearch.forge.xplat;
 
-import name.dashkal.minecraft.hexresearch.HexResearch;
-import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity;
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
+import name.dashkal.minecraft.hexresearch.forge.cap.ICognitiveInducerMarks;
 import name.dashkal.minecraft.hexresearch.forge.effect.MindFatigueEffectImpl;
 import name.dashkal.minecraft.hexresearch.xplat.XPlatAPI;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.npc.Villager;
+
+import java.util.SortedSet;
 
 public class ForgeXPlatAPIImpl extends XPlatAPI {
     public static void init() {
@@ -19,21 +19,17 @@ public class ForgeXPlatAPIImpl extends XPlatAPI {
     }
 
     @Override
-    public void cognitiveInducerMarkVillager(Villager villager, long expirationTime) {
-        if (!villager.getPersistentData().contains(HexResearch.MOD_ID)) {
-            villager.getPersistentData().put(HexResearch.MOD_ID, new CompoundTag());
-        }
-        villager.getPersistentData()
-                .getCompound(HexResearch.MOD_ID)
-                .putLong(CognitiveInducerBlockEntity.TAG_VILLAGER_MARKED, expirationTime);
+    public void cognitiveInducerMarkVillager(Villager villager, long gameTime) {
+        ICognitiveInducerMarks.with(villager, c -> c.mark(gameTime));
     }
 
     @Override
-    public boolean cognitiveInducerIsVillagerMarked(Villager villager, long worldTime) {
-        long exprTime = villager.getPersistentData()
-                .getCompound(HexResearch.MOD_ID)
-                .getLong(CognitiveInducerBlockEntity.TAG_VILLAGER_MARKED);
+    public SortedSet<Long> cognitiveInducerGetMarks(Villager villager) {
+        return ICognitiveInducerMarks.withF(villager, ICognitiveInducerMarks::getMarks);
+    }
 
-        return exprTime > worldTime;
+    @Override
+    public void cognitiveInducerPruneMarks(Villager villager, long gameTime) {
+        ICognitiveInducerMarks.with(villager, c -> c.pruneMarks(gameTime));
     }
 }

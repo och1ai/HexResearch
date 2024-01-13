@@ -3,6 +3,8 @@ package name.dashkal.minecraft.hexresearch.xplat;
 import name.dashkal.minecraft.hexresearch.effect.MindFatigueEffect;
 import net.minecraft.world.entity.npc.Villager;
 
+import java.util.SortedSet;
+
 /**
  * Interface that houses platform-specific logic.
  * <p>
@@ -19,9 +21,27 @@ public abstract class XPlatAPI {
     /** Returns the Mind Fatigue potion effect. */
     public abstract MindFatigueEffect getMindFatigueEffect();
 
-    /** Marks the villager with the world time for reading later. */
-    public abstract void cognitiveInducerMarkVillager(Villager villager, long expirationTime);
+    /**
+     * Marks the villager indicating that a cognitive inducer tried to take an impression.
+     *
+     * @param villager The villager to mark
+     * @param gameTime The current game time as per `Level.getGameTime()`
+     */
+    public abstract void cognitiveInducerMarkVillager(Villager villager, long gameTime);
 
-    /** Returns true if the villager is marked and the time has not expired. */
-    public abstract boolean cognitiveInducerIsVillagerMarked(Villager villager, long worldTime);
+    /**
+     * Returns a sorted set of all marks currently on the given villager.
+     *
+     * @param villager the villager to check marks for
+     * @return a sorted set of all active marks on the villager
+     */
+    public abstract SortedSet<Long> cognitiveInducerGetMarks(Villager villager);
+
+    /**
+     * Prunes the marks on the villager, removing any that should have expired as per the server configuration.
+     *
+     * @param villager the villager to check marks for
+     * @param gameTime the current game time as per `Level.getGameTime()`
+     */
+    public abstract void cognitiveInducerPruneMarks(Villager villager, long gameTime);
 }

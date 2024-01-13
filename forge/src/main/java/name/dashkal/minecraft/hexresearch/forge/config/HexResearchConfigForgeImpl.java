@@ -2,6 +2,7 @@ package name.dashkal.minecraft.hexresearch.forge.config;
 
 import dev.architectury.platform.Platform;
 import name.dashkal.minecraft.hexresearch.HexResearch;
+import name.dashkal.minecraft.hexresearch.block.entity.CognitiveInducerBlockEntity;
 import name.dashkal.minecraft.hexresearch.config.ClientConfig;
 import name.dashkal.minecraft.hexresearch.config.CommonConfig;
 import name.dashkal.minecraft.hexresearch.config.HexResearchConfig;
@@ -80,6 +81,7 @@ public class HexResearchConfigForgeImpl extends HexResearchConfig {
     private static class ServerConfigSpec {
         private static final ServerConfig DEFAULT = ServerConfig.getDefault();
         private final ForgeConfigSpec.IntValue MIND_TRAINING_IMPRESSION_COST_DUST;
+        private final ForgeConfigSpec.IntValue MIND_TRAINING_IMPRESSION_MARK_EXPIRATION_SECONDS;
         private final ForgeConfigSpec.IntValue MIND_TRAINING_NUM_IMPRESSIONS_NOVICE;
         private final ForgeConfigSpec.IntValue MIND_TRAINING_NUM_IMPRESSIONS_APPRENTICE;
         private final ForgeConfigSpec.IntValue MIND_TRAINING_NUM_IMPRESSIONS_JOURNEYMAN;
@@ -99,6 +101,14 @@ public class HexResearchConfigForgeImpl extends HexResearchConfig {
             builder.comment("Configuration for training minds in the Cognitive Inducer").push("mindTraining");
             builder.comment("Media cost to make a single mind impression in units of amethyst dust");
             MIND_TRAINING_IMPRESSION_COST_DUST = builder.defineInRange("impressionCostDust", DEFAULT.mindTrainingConfig().impressionCostDust(), 0, Integer.MAX_VALUE);
+
+            builder.comment("Time in seconds before an impression mark from the Cognitive Inducer should expire");
+            MIND_TRAINING_IMPRESSION_MARK_EXPIRATION_SECONDS = builder.defineInRange(
+                    "impressionMarkExpirationTimeSeconds",
+                    DEFAULT.mindTrainingConfig().impressionMarkExpirationTimeSeconds(),
+                    CognitiveInducerBlockEntity.IMPRESSION_COOLDOWN_SECONDS,
+                    Integer.MAX_VALUE
+            );
 
             builder.push("numImpressions");
             builder.comment("Number of impressions required to train a novice mind");
@@ -135,6 +145,7 @@ public class HexResearchConfigForgeImpl extends HexResearchConfig {
                 ServerConfig cfg = new ServerConfig(
                         new ServerConfig.MindTrainingConfig(
                                 MIND_TRAINING_IMPRESSION_COST_DUST.get(),
+                                MIND_TRAINING_IMPRESSION_MARK_EXPIRATION_SECONDS.get(),
                                 Map.of(
                                         1, MIND_TRAINING_NUM_IMPRESSIONS_NOVICE.get(),
                                         2, MIND_TRAINING_NUM_IMPRESSIONS_APPRENTICE.get(),

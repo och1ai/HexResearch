@@ -42,7 +42,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "hexresearch:ci_mark"
+      "hexresearch:ci_mark",
+      "hexresearch:ci_marks"
     ]
   }
 }
