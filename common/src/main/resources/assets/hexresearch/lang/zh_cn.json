@@ -21,7 +21,7 @@
   "hexresearch.entry.items.cognitive_inducer": "认知感应器",
   "hexresearch.page.items.cognitive_inducer.1": "我设计了能够利用周围村民引导构成初级意识的装置。构成的意识不具备真正的智慧，但我相信它足够用于管理图书或是操纵媒质。",
   "hexresearch.page.items.cognitive_inducer.2": "由石板、紫水晶，以及一枚用作意识锚点的钻石制成。",
-  "hexresearch.page.items.cognitive_inducer.3": "认知感应器的操作方式相当简单。将其放在村民附近，通过漏斗等方式送入媒质，再静待完工。$(l:hexcasting:items/lens)探知透镜/$应当能用来查看进度。感应器会随时间收集附近村民的印象，足量的印象就能产生可用的“意识”。$(br2)我还没有找到使用这种意识的方式，但我确信随着研究的深入终究能找到。",
+  "hexresearch.page.items.cognitive_inducer.3": "认知感应器的操作方式相当简单。将其放在村民附近，通过漏斗等方式送入媒质，再静待完工。$(l:hexcasting:items/lens)探知透镜/$应当能用来查看进度。感应器会随时间收集附近村民的印象，足量的印象就能产生可用的“意识”。我注意到长时间感应同一村民后，其便不会再供应印象。我还没有找到使用这种意识的方式，但我确信随着研究的深入终究能找到。",
   "hexresearch.page.items.cognitive_inducer.4": "我成功了！$(br2)我发明？发现？了一个$(l:hexresearch:patterns/great_spells/imbue_mind)卓越法术/$，它能把感应器中的意识放入合适的目标，类似$(l:hexcasting:greatwork/brainsweeping)剥离意识/$。$(br2)我现在能培育意识并令其劳作了……$(br2)我该为这种行为产生负面情绪吗？",
 
   "hexcasting.spell.hexresearch:thought_sieve": "思维筛滤",
