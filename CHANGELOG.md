@@ -1,6 +1,12 @@
 = Changelog =
 
+== 1.0.1 ==
+
+* Updated zh_ch - ChuijkYahus
+* Updated dependencies
+
 == 1.0.0 ==
+
 * Cognitive Inducer
   * No longer able to continuously farm minds from a single villager
     * Impression marks are retained for one hour (configurable)
