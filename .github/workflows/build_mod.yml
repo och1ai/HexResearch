@@ -1,4 +1,4 @@
-name: Build, Test, and Publish Mod
+name: Build
 
 on:
   push:
@@ -9,11 +9,11 @@ on:
     branches: main
     # branches: ${{ github.event.repository.default_branch }}
   workflow_dispatch:
-    inputs:
-      release:
-        description: Release this version
-        type: boolean
-        default: false
+#    inputs:
+#      release:
+#        description: Release this version
+#        type: boolean
+#        default: false
 
 permissions:
   contents: read
@@ -22,7 +22,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      modVersion: ${{ steps.modVersion.outputs.modVersion }}
+      minecraftVersion: ${{ steps.versions.outputs.minecraftVersion }}
+      modVersion: ${{ steps.versions.outputs.modVersion }}
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -34,9 +35,11 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         gradle-version: 8.1
-    - name: Get Mod Version
-      id: modVersion
-      run: cat gradle.properties | grep modVersion >> "$GITHUB_OUTPUT"
+    - name: Get Versions
+      id: versions
+      run: |
+        cat gradle.properties | grep minecraftVersion >> "$GITHUB_OUTPUT"
+        cat gradle.properties | grep modVersion >> "$GITHUB_OUTPUT"
     - name: Build
       run: gradle build
     - name: Test
@@ -53,24 +56,3 @@ jobs:
         name: fabric
         path: fabric/build/libs/*.jar
         retention-days: 7
-  publish:
-    runs-on: ubuntu-latest
-    needs: build
-    if: |-
-      ${{
-        github.event_name == 'workflow_dispatch' && inputs.release
-        || (false && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
-      }}
-    environment: publish_mod
-    steps:
-    - uses: actions/download-artifact@v4
-      with:
-        path: build/libs
-        merge-multiple: true
-    - uses: Kir-Antipov/mc-publish@v3.3
-      with:
-        modrinth-id: ${{ vars.MODRINTH_PROJECT_ID }}
-        modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
-        dependencies: |
-          hexcasting@(required){modrinth:nTW3yKrm}
-          hexgloop@(optional){modrinth:ryfyOhoP}

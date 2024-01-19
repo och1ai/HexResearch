@@ -1,5 +1,7 @@
 # Hex Research
 
+[![Build](https://github.com/dashkal16/HexResearch/actions/workflows/build_mod.yml/badge.svg?event=push)](https://github.com/dashkal16/HexResearch/actions/workflows/build_mod.yml)
+
 An addon to Hex Casting that provides alternative ways to accomplish Hexcasting progression.
 
 The general philosophy is that there should be a tedious, but benign way to accomplish any given goal, as well as a faster route, if one is willing to abuse friendly NPCs.
@@ -12,6 +14,7 @@ The documentation may be found on the web at https://dashkal16.github.io/HexRese
 * Minecraft: 1.19.2
 * Forge: 1.19.2-43.2.11
 * Fabric: 0.14.21
+* Architectury: 6.5.85
 * Hex Casting: 0.10.3
 * Patchouli: 1.19.2-77
 
