@@ -5,10 +5,24 @@
       "trigger": "minecraft:impossible"
     },
     "is_enlightened": {
-      "trigger": "hexresearch:advancement",
+      "trigger": "minecraft:tick",
       "conditions": {
-        "advancement": "hexcasting:enlightenment"
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:player",
+              "advancements": {
+                "hexcasting:enlightenment": true
+              }
+            }
+          }
+        ]
       }
     }
-  }
+  },
+  "requirements": [
+    ["cast_spell", "is_enlightened"]
+  ]
 }

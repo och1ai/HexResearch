@@ -1,0 +1,10 @@
+{
+  "type": "hexcasting:per_world_pattern",
+  "pattern": {
+    "start_dir": "NORTH_EAST",
+    "angles": [
+      "wqwqwqwqwqwaewaqeqaqeedqdd"
+    ]
+  },
+  "action": "hexresearch:imbue_mind"
+}

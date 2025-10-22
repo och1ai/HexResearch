@@ -1,0 +1,10 @@
+{
+  "type": "hexcasting:normal_pattern",
+  "pattern": {
+    "start_dir": "WEST",
+    "angles": [
+      "qadaadadqaqdadqaq"
+    ]
+  },
+  "action": "hexresearch:thought_sieve"
+}
